@@ -1,0 +1,2125 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NECRO Tooling Pvt. Ltd. — Architectural Alabaster & Bronze PCBA Tooling</title>
+    <!-- Google Fonts: Cormorant Garamond, Plus Jakarta Sans, JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Cormorant Garamond', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        alabasterCanvas: '#FAF7F2',
+                        ivoryParchment: '#F3EDE4',
+                        porcelainCard: '#FFFFFF',
+                        softLinen: '#EDE5D9',
+                        sandHairline: '#E4DDD3',
+                        espressoInk: '#231914',
+                        roastedWalnut: '#5C4B41',
+                        mutedTaupe: '#8A786D',
+                        terracotta: '#B85D3B',
+                        brushedCopper: '#9E6B3B',
+                        sagePcb: '#3D6B52',
+                        matteGraphite: '#3A3532',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --alabaster-canvas: #FAF7F2;
+            --ivory-parchment: #F3EDE4;
+            --porcelain-card: #FFFFFF;
+            --soft-linen: #EDE5D9;
+            --sand-hairline: #E4DDD3;
+            --espresso-ink: #231914;
+            --roasted-walnut: #5C4B41;
+            --muted-taupe: #8A786D;
+            --terracotta: #B85D3B;
+            --brushed-copper: #9E6B3B;
+            --sage-pcb: #3D6B52;
+            --matte-graphite: #3A3532;
+        }
+
+        body {
+            background-color: var(--alabaster-canvas);
+            color: var(--espresso-ink);
+            overflow-x: hidden;
+        }
+
+        /* Warm Editorial Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF7F2;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #B85D3B, #9E6B3B, #5C4B41);
+            border-radius: 999px;
+        }
+
+        /* Subtle Fine Cotton Paper Grain */
+        .paper-grain {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 60;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Gentle Warm Ambient Parallax Orbs */
+        @keyframes warmDrift {
+            0%, 100% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(28px, -20px) scale(1.04); }
+            66% { transform: translate(-20px, 16px) scale(0.97); }
+        }
+        .warm-orb {
+            animation: warmDrift 16s ease-in-out infinite;
+        }
+        .warm-orb-delay {
+            animation: warmDrift 20s ease-in-out infinite reverse;
+        }
+
+        /* Architectural Drafting Grid */
+        .drafting-grid {
+            background-size: 48px 48px;
+            background-image: 
+                linear-gradient(to right, rgba(35, 25, 20, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(35, 25, 20, 0.04) 1px, transparent 1px);
+        }
+
+        /* Pure Porcelain & Warm Parchment Panels with Copper Spotlight Hover */
+        .editorial-panel {
+            position: relative;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid #E4DDD3;
+            box-shadow: 0 12px 35px -15px rgba(35, 25, 20, 0.08);
+            transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease, background-color 0.35s ease, box-shadow 0.4s ease;
+        }
+
+        .editorial-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            padding: 1.5px;
+            background: radial-gradient(460px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(184, 93, 59, 0.45), rgba(158, 107, 59, 0.25), transparent 62%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+        }
+
+        .editorial-panel:hover::before {
+            opacity: 1;
+        }
+
+        .editorial-panel:hover {
+            background: #FFFFFF;
+            box-shadow: 0 24px 55px -18px rgba(35, 25, 20, 0.14);
+        }
+
+        /* Brushed Bronze & Terracotta Architectural Rim */
+        .bronze-rim {
+            position: relative;
+            border-radius: 1.5rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, #B85D3B 0%, #9E6B3B 38%, #3D6B52 72%, #231914 100%);
+            background-size: 260% 260%;
+            animation: bronzeShift 9s ease infinite;
+        }
+
+        @keyframes bronzeShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Continuous Editorial Ticker */
+        @keyframes tickerRoll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: tickerRoll 34s linear infinite;
+        }
+        .ticker-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Staggered Architectural Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Exploded Assembly Layers */
+        .assembly-layer {
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
+        }
+        .is-exploded .layer-clamp {
+            transform: translateY(-26px);
+        }
+        .is-exploded .layer-pcb {
+            transform: translateY(0px);
+        }
+        .is-exploded .layer-base {
+            transform: translateY(26px);
+        }
+
+        /* Warm Copper Datum Scan Beam */
+        @keyframes copperScan {
+            0% { top: 4%; opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { top: 96%; opacity: 0; }
+        }
+        .scan-beam {
+            animation: copperScan 3.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+        }
+
+        /* Radar Pulse */
+        @keyframes radarPulse {
+            0% { transform: scale(0.8); opacity: 0.85; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+        .radar-ping {
+            transform-origin: center;
+            transform-box: fill-box;
+            animation: radarPulse 2.5s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+        }
+
+        /* Tactile Buttons */
+        .tactile-btn {
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+        }
+        .tactile-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* Slide-over NDA Drawer */
+        .drawer-overlay {
+            transition: opacity 0.35s ease;
+        }
+        .drawer-sheet {
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-[#B85D3B] selection:text-[#FAF7F2]">
+
+    <!-- Subtle Fine Paper Grain Overlay -->
+    <div class="paper-grain"></div>
+
+    <!-- Custom Warm Spotlight Aura -->
+    <div id="cursor-glow" class="fixed w-[420px] h-[420px] rounded-full pointer-events-none z-0 opacity-45 blur-[110px] transition-transform duration-150 ease-out" style="background: radial-gradient(circle, rgba(184,93,59,0.16) 0%, rgba(158,107,59,0.12) 50%, transparent 75%); transform: translate(-500px, -500px);"></div>
+
+    <!-- Zero-Alert Toast Stack -->
+    <div id="toast-stack" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <!-- SLIDE-OVER MUTUAL NDA & GERBER DFM PROTOCOL DRAWER -->
+    <div id="nda-drawer" class="fixed inset-0 z-50 hidden justify-end bg-[#231914]/45 backdrop-blur-sm drawer-overlay opacity-0" onclick="closeNdaDrawer()">
+        <aside class="drawer-sheet w-full max-w-xl h-full bg-[#FAF7F2] border-l border-[#E4DDD3] p-6 sm:p-9 overflow-y-auto flex flex-col justify-between transform translate-x-full shadow-2xl" onclick="event.stopPropagation()">
+            <div class="space-y-6">
+                <div class="flex items-start justify-between gap-4 pb-5 border-b border-[#E4DDD3]">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#B85D3B]/12 text-[#B85D3B] border border-[#B85D3B]/30 font-mono text-[11px] font-semibold mb-2">
+                            ISO 27001 AIR-GAPPED CAM • MUTUAL NDA READY
+                        </span>
+                        <h3 class="font-display text-3xl sm:text-4xl font-bold text-[#231914] tracking-tight">Mutual NDA & Gerber DFM Protocol</h3>
+                    </div>
+                    <button onclick="closeNdaDrawer()" class="p-2.5 rounded-xl bg-[#F3EDE4] hover:bg-[#B85D3B]/15 text-[#5C4B41] hover:text-[#B85D3B] border border-[#E4DDD3] transition" aria-label="Close Drawer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
+                </div>
+
+                <p class="text-sm text-[#5C4B41] leading-relaxed">
+                    Every PCB layout, Gerber archive, ODB++ stackup, and 3D STEP assembly transmitted to <strong class="text-[#231914]">NECRO Tooling Pvt. Ltd.</strong> (formerly Toto Engineering) is processed inside encrypted, offline CAM workstations across our <span class="text-[#B85D3B] font-semibold">Bangalore HQ</span>, <span class="text-[#9E6B3B] font-semibold">Pune</span>, <span class="text-[#3D6B52] font-semibold">Gurgaon</span>, and <span class="text-[#231914] font-semibold">Greater Noida</span> plants.
+                </p>
+
+                <!-- Accepted CAD & Gerber Package Formats -->
+                <div class="p-5 rounded-2xl bg-[#FFFFFF] border border-[#E4DDD3] space-y-3 shadow-sm">
+                    <div class="font-mono text-xs text-[#B85D3B] font-semibold uppercase tracking-wider">01 // ACCEPTED CAD & GERBER ARCHIVES</div>
+                    <div class="flex flex-wrap gap-2 font-mono text-xs">
+                        <span class="px-3 py-1.5 rounded-lg bg-[#B85D3B]/10 text-[#B85D3B] border border-[#B85D3B]/25">ODB++ (.tgz / .zip)</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#9E6B3B]/10 text-[#9E6B3B] border border-[#9E6B3B]/25">IPC-2581 Rev B</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#3D6B52]/10 text-[#3D6B52] border border-[#3D6B52]/25">RS-274X Gerber + NC Drill</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#F3EDE4] text-[#231914] border border-[#E4DDD3]">3D STEP / IGES Assembly</span>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#FAF7F2] text-[#5C4B41] border border-[#E4DDD3]">XY Centroid & Tall-Part BOM</span>
+                    </div>
+                </div>
+
+                <!-- 24-Hour DFM & NDA SLA Steps -->
+                <div class="space-y-3 font-mono text-xs">
+                    <div class="p-4 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3] border-l-4 border-l-[#B85D3B]">
+                        <div class="text-[#B85D3B] font-bold">STEP 01 // COUNTERSIGNED MUTUAL NDA (2 HRS)</div>
+                        <div class="text-[#5C4B41] mt-1">Corporate bilateral NDA signed by NECRO Legal & Engineering before file ingestion—or upload under your own OEM NDA.</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3] border-l-4 border-l-[#9E6B3B]">
+                        <div class="text-[#9E6B3B] font-bold">STEP 02 // 24-HR DFM & 3D STEP APPROVAL PROOF</div>
+                        <div class="text-[#5C4B41] mt-1">Full aperture solder-shadow check, 0.50mm Ti-6Al-4V wall verification, and clamp collision simulation prior to 5-axis CNC milling.</div>
+                    </div>
+                    <div class="p-4 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3] border-l-4 border-l-[#3D6B52]">
+                        <div class="text-[#3D6B52] font-bold">STEP 03 // CMM & ESD CERTIFICATION REPORT</div>
+                        <div class="text-[#5C4B41] mt-1">Every shipped pallet & fixture includes ±0.01 mm dimensional inspection logs and ANSI/ESD S20.20 surface resistivity verification.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-5 border-t border-[#E4DDD3] space-y-3">
+                <a href="mailto:rfq@necrotooling.in?subject=Mutual%20NDA%20%26%20Gerber%20DFM%20Dispatch%20-%20NECRO%20Tooling&body=Hello%20NECRO%20Engineering%20%26%20NDA%20Desk%2C%0A%0APlease%20share%20your%20countersigned%20Mutual%20NDA%20so%20we%20can%20transmit%20our%20ODB%2B%2B%20%2F%20Gerber%20%2F%20STEP%20CAD%20package.%0A%0APreferred%20Plant%20(Bangalore%20HQ%20%2F%20Pune%20%2F%20Gurgaon%20%2F%20Greater%20Noida)%3A%20%0ATooling%20Requirement%3A%20" class="tactile-btn block w-full text-center px-5 py-4 rounded-2xl bg-[#231914] text-[#FAF7F2] font-sans font-bold text-xs sm:text-sm tracking-wide shadow-lg hover:bg-[#B85D3B]">
+                    REQUEST COUNTERSIGNED NDA VIA EMAIL →
+                </a>
+                <button onclick="copyDfmManifest()" class="tactile-btn w-full px-4 py-3 rounded-xl bg-[#F3EDE4] hover:bg-[#EDE5D9] border border-[#E4DDD3] font-mono text-xs text-[#231914] font-semibold">
+                    COPY GERBER & DFM SUBMISSION CHECKLIST
+                </button>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FLOATING ARCHITECTURAL HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+            <nav class="editorial-panel rounded-2xl px-4 sm:px-6 py-3.5 flex items-center justify-between">
+                <!-- Architectural Brand Identity -->
+                <a href="#hero" class="flex items-center gap-3.5 group">
+                    <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-[#B85D3B] via-[#9E6B3B] to-[#231914] p-[1.5px] group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-[#FAF7F2] rounded-[10px] flex items-center justify-center">
+                            <svg class="w-6 h-6 text-[#231914] group-hover:rotate-90 transition-transform duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polygon points="12 2 21 7 21 17 12 22 3 17 3 7 12 2"></polygon>
+                                <circle cx="12" cy="12" r="2.8" stroke="#B85D3B"></circle>
+                                <line x1="12" y1="2" x2="12" y2="9.2"></line>
+                                <line x1="21" y1="17" x2="14.5" y2="13.5"></line>
+                                <line x1="3" y1="17" x2="9.5" y2="13.5"></line>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <span class="font-display font-bold text-2xl tracking-wider text-[#231914]">NECRO</span>
+                            <span class="text-[10px] font-mono font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-[#B85D3B]/12 text-[#B85D3B] border border-[#B85D3B]/30">EST. 2019</span>
+                        </div>
+                        <p class="text-[10px] text-[#8A786D] font-mono tracking-wider hidden sm:block">NECRO TOOLING PVT. LTD. • FORMERLY TOTO ENGINEERING</p>
+                    </div>
+                </a>
+
+                <!-- Center Navigation -->
+                <div class="hidden lg:flex items-center gap-1 bg-[#F3EDE4] p-1 rounded-xl border border-[#E4DDD3] font-mono text-xs">
+                    <a href="#inspector" class="px-3.5 py-2 rounded-lg text-[#5C4B41] hover:text-[#231914] hover:bg-white transition">01. CAD INSPECTOR</a>
+                    <a href="#portfolio" class="px-3.5 py-2 rounded-lg text-[#5C4B41] hover:text-[#231914] hover:bg-white transition">02. TOOLING MATRIX</a>
+                    <a href="#materials" class="px-3.5 py-2 rounded-lg text-[#5C4B41] hover:text-[#231914] hover:bg-white transition">03. MATERIAL LAB</a>
+                    <a href="#plants" class="px-3.5 py-2 rounded-lg text-[#5C4B41] hover:text-[#231914] hover:bg-white transition">04. 4 PLANTS</a>
+                </div>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-2.5">
+                    <button onclick="openNdaDrawer()" class="tactile-btn hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#F3EDE4] hover:bg-[#EDE5D9] border border-[#E4DDD3] font-mono text-xs text-[#5C4B41] hover:text-[#231914] font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>
+                        <span>NDA & DFM PROTOCOL</span>
+                    </button>
+                    <a href="#rfq-engine" class="tactile-btn px-4 py-2.5 rounded-xl bg-[#231914] text-[#FAF7F2] font-sans font-bold text-xs sm:text-sm tracking-wide shadow-md hover:bg-[#B85D3B]">
+                        DISPATCH CAD / RFQ
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION: Warm Alabaster Editorial + Interactive 3-Mode Architectural Hardware Stage -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-28 pb-20 overflow-hidden drafting-grid">
+        <!-- Ambient Warm Parchment & Terracotta Orbs -->
+        <div class="warm-orb absolute -top-24 -left-24 w-[480px] h-[480px] rounded-full bg-[#B85D3B]/10 blur-[130px] pointer-events-none"></div>
+        <div class="warm-orb-delay absolute top-1/3 -right-28 w-[460px] h-[460px] rounded-full bg-[#9E6B3B]/12 blur-[135px] pointer-events-none"></div>
+        <div class="warm-orb absolute -bottom-32 left-1/3 w-[420px] h-[420px] rounded-full bg-[#3D6B52]/10 blur-[130px] pointer-events-none"></div>
+
+        <!-- Subtle Sepia Architectural Circuit Trace Overlay -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none opacity-35" viewBox="0 0 1440 800" fill="none">
+            <path d="M-40 160 H260 L320 220 H640" stroke="#9E6B3B" stroke-width="1.2" stroke-dasharray="8 8"/>
+            <path d="M1480 620 H1120 L1050 550 H780" stroke="#B85D3B" stroke-width="1.2" stroke-dasharray="6 6"/>
+            <circle cx="640" cy="220" r="4" fill="#9E6B3B"/>
+            <circle cx="780" cy="550" r="4" fill="#B85D3B"/>
+        </svg>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Editorial Column -->
+                <div class="lg:col-span-7 space-y-7">
+                    <div class="inline-flex flex-wrap items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#FFFFFF] border border-[#E4DDD3] shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-[#3D6B52] animate-ping"></span>
+                        <span class="font-mono text-[11px] font-semibold text-[#5C4B41] tracking-wider uppercase">ISO 9001:2015 • ESD S20.20 CERTIFIED • 4 INDIAN PLANTS</span>
+                    </div>
+
+                    <h1 class="font-display text-5xl sm:text-6xl lg:text-[4.8rem] font-bold tracking-tight leading-[1.01] text-[#231914]">
+                        Precision Tooling<br>
+                        Crafted in<br>
+                        <span class="italic bg-gradient-to-r from-[#B85D3B] via-[#9E6B3B] to-[#3D6B52] bg-clip-text text-transparent">Bronze & Stone.</span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-[#5C4B41] max-w-2xl leading-relaxed">
+                        <strong class="text-[#231914]">NECRO Tooling Pvt. Ltd.</strong> (formerly <span class="text-[#231914] font-medium">Toto Engineering</span>, Est. 2019) designs and manufactures bespoke wave-soldering pallets, manual soldering fixtures, screwing & press-fit tooling, ESD PCB magazines, CNC router pallets, and laser SMT stencils from <span class="text-[#B85D3B] font-semibold">Durostone®</span>, <span class="text-[#9E6B3B] font-semibold">Ricocel®</span>, <span class="text-[#3D6B52] font-semibold">Grade-5 Titanium</span>, and <span class="text-[#231914] font-semibold">7075-T6 Aluminum</span>.
+                    </p>
+
+                    <!-- Zero-Form Instant Action Triggers -->
+                    <div class="flex flex-wrap items-center gap-3.5 pt-1">
+                        <a href="#rfq-engine" class="tactile-btn group inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-[#231914] text-[#FAF7F2] font-sans font-bold text-sm sm:text-base shadow-[0_14px_30px_rgba(35,25,20,0.22)] hover:bg-[#B85D3B]">
+                            <span>CONFIGURE ONE-TAP RFQ</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+
+                        <button onclick="copyToClipboard('engineering@necrotooling.in', 'Central CAM Desk Copied', 'engineering@necrotooling.in')" class="tactile-btn inline-flex items-center gap-2.5 px-5 py-4 rounded-2xl editorial-panel hover:border-[#B85D3B]/50 font-mono text-xs sm:text-sm text-[#231914]">
+                            <span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>
+                            <span>engineering@necrotooling.in</span>
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-[#F3EDE4] text-[#B85D3B] font-bold">COPY</span>
+                        </button>
+                    </div>
+
+                    <!-- Live Animated KPI Telemetry Strip -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 pt-6 border-t border-[#E4DDD3]">
+                        <div class="editorial-panel p-3.5 rounded-2xl">
+                            <div class="font-mono text-xl sm:text-2xl font-bold text-[#B85D3B]">±0.01 mm</div>
+                            <div class="font-mono text-[10px] uppercase tracking-wider text-[#8A786D] mt-1">CNC Repeatability</div>
+                        </div>
+                        <div class="editorial-panel p-3.5 rounded-2xl">
+                            <div class="font-mono text-xl sm:text-2xl font-bold text-[#9E6B3B]">
+                                <span class="kpi-counter" data-target="350">350</span>°C
+                            </div>
+                            <div class="font-mono text-[10px] uppercase tracking-wider text-[#8A786D] mt-1">Peak Thermal Shield</div>
+                        </div>
+                        <div class="editorial-panel p-3.5 rounded-2xl">
+                            <div class="font-mono text-xl sm:text-2xl font-bold text-[#3D6B52]">10⁵–10⁹ Ω</div>
+                            <div class="font-mono text-[10px] uppercase tracking-wider text-[#8A786D] mt-1">ESD Safe Range</div>
+                        </div>
+                        <div class="editorial-panel p-3.5 rounded-2xl">
+                            <div class="font-mono text-xl sm:text-2xl font-bold text-[#231914]">
+                                <span class="kpi-counter" data-target="4">4</span> Plants
+                            </div>
+                            <div class="font-mono text-[10px] uppercase tracking-wider text-[#8A786D] mt-1">BLR • PUN • GGN • GN</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive 3-Mode Editorial Hardware Stage with Perspective Tilt -->
+                <div class="lg:col-span-5">
+                    <div id="hero-tilt-card" class="bronze-rim shadow-[0_30px_70px_-15px_rgba(35,25,20,0.22)] transition-transform duration-200 ease-out">
+                        <div class="relative rounded-[1.4rem] bg-[#FFFFFF] p-5 sm:p-6 overflow-hidden">
+                            <!-- Warm Copper Datum Scan Beam -->
+                            <div class="scan-beam absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#B85D3B] to-transparent z-20 pointer-events-none"></div>
+
+                            <!-- 3-Mode Switcher Header -->
+                            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                                <span id="hero-stage-tag" class="font-mono text-[10px] text-[#B85D3B] font-semibold tracking-wider">EDITORIAL_STUDIO // WAVE_PALLET_CAS761</span>
+                                <div class="flex items-center gap-1 bg-[#F3EDE4] p-1 rounded-xl border border-[#E4DDD3] font-mono text-[10px]">
+                                    <button id="mode-studio" onclick="switchHeroStage('studio')" class="px-2.5 py-1 rounded-lg font-bold bg-[#231914] text-[#FAF7F2] transition">EDITORIAL STUDIO</button>
+                                    <button id="mode-xray" onclick="switchHeroStage('xray')" class="px-2.5 py-1 rounded-lg font-bold text-[#5C4B41] hover:text-[#231914] transition">CAD BLUEPRINT</button>
+                                    <button id="mode-thermal" onclick="switchHeroStage('thermal')" class="px-2.5 py-1 rounded-lg font-bold text-[#5C4B41] hover:text-[#231914] transition">THERMAL MAP</button>
+                                </div>
+                            </div>
+
+                            <!-- Viewport -->
+                            <div class="relative aspect-square w-full rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] overflow-hidden flex items-center justify-center p-3">
+                                <!-- MODE 1: EDITORIAL STUDIO RENDER (Warm Ivory, Brushed Copper, Terracotta, Sage Green PCBA) -->
+                                <div id="stage-view-studio" class="w-full h-full flex items-center justify-center transition-all duration-500 opacity-100 scale-100">
+                                    <svg viewBox="0 0 440 440" class="w-full h-full drop-shadow-[0_18px_28px_rgba(35,25,20,0.16)]">
+                                        <defs>
+                                            <radialGradient id="ivoryBacklight" cx="50%" cy="48%" r="55%">
+                                                <stop offset="0%" stop-color="#E4DDD3" stop-opacity="0.65"/>
+                                                <stop offset="65%" stop-color="#F3EDE4" stop-opacity="0.35"/>
+                                                <stop offset="100%" stop-color="#FAF7F2" stop-opacity="0"/>
+                                            </radialGradient>
+                                            <linearGradient id="warmCompositeTop" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#4A3E36"/>
+                                                <stop offset="50%" stop-color="#352B25"/>
+                                                <stop offset="100%" stop-color="#231914"/>
+                                            </linearGradient>
+                                            <linearGradient id="sagePcbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#4B8063"/>
+                                                <stop offset="55%" stop-color="#3D6B52"/>
+                                                <stop offset="100%" stop-color="#2B4E3B"/>
+                                            </linearGradient>
+                                            <linearGradient id="copperClampGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#E5C5A3"/>
+                                                <stop offset="50%" stop-color="#B85D3B"/>
+                                                <stop offset="100%" stop-color="#7E3E26"/>
+                                            </linearGradient>
+                                        </defs>
+
+                                        <rect width="440" height="440" fill="url(#ivoryBacklight)"/>
+
+                                        <!-- 3D Extruded Durostone CAS-761 Chassis -->
+                                        <polygon points="45,222 220,324 220,346 45,244" fill="#1C1410" stroke="#5C4B41" stroke-width="1"/>
+                                        <polygon points="395,222 220,324 220,346 395,244" fill="#2E231D" stroke="#5C4B41" stroke-width="1"/>
+                                        <polygon points="220,118 395,222 220,324 45,222" fill="url(#warmCompositeTop)" stroke="#9E6B3B" stroke-width="1.5"/>
+
+                                        <!-- Laser-Engraved Serial & Substrate Text -->
+                                        <text x="104" y="274" transform="rotate(30 104,274)" font-family="JetBrains Mono" font-size="8.5" font-weight="bold" fill="#E5C5A3" letter-spacing="1.2">NECRO // DUROSTONE® CAS-761</text>
+                                        <text x="260" y="302" transform="rotate(-30 260,302)" font-family="JetBrains Mono" font-size="8" fill="#D49A6A" letter-spacing="1">TI-6AL-4V SHIELD</text>
+
+                                        <!-- Recessed CNC Cavity -->
+                                        <polygon points="220,145 352,222 220,299 88,222" fill="#18120E" stroke="#5C4B41" stroke-width="1.5"/>
+
+                                        <!-- Sage Green & Brushed Gold PCBA -->
+                                        <polygon points="220,154 338,222 220,290 102,222" fill="url(#sagePcbGrad)" stroke="#E5C5A3" stroke-width="1.3"/>
+
+                                        <!-- Warm Copper Circuit Traces -->
+                                        <g stroke="#E5C5A3" stroke-width="1.2" opacity="0.8" fill="none">
+                                            <polyline points="165,222 195,205 225,222 255,205"/>
+                                            <polyline points="180,235 210,218 240,235 270,218"/>
+                                            <polyline points="195,192 220,206 245,192"/>
+                                        </g>
+
+                                        <!-- Brushed Gold Fiducials & Solder Aperture Pads -->
+                                        <g fill="#E5B869">
+                                            <circle cx="220" cy="166" r="3.5"/>
+                                            <circle cx="320" cy="222" r="3.5"/>
+                                            <circle cx="220" cy="278" r="3.5"/>
+                                            <circle cx="120" cy="222" r="3.5"/>
+                                            <ellipse cx="185" cy="245" rx="4.2" ry="2.5"/>
+                                            <ellipse cx="198" cy="252" rx="4.2" ry="2.5"/>
+                                            <ellipse cx="211" cy="259" rx="4.2" ry="2.5"/>
+                                            <ellipse cx="224" cy="266" rx="4.2" ry="2.5"/>
+                                        </g>
+
+                                        <!-- Central IC & Inductors -->
+                                        <polygon points="220,202 246,217 220,232 194,217" fill="#231914" stroke="#E5C5A3" stroke-width="1.2"/>
+                                        <polygon points="172,212 188,221 172,230 156,221" fill="#3A3532" stroke="#FAF7F2" stroke-width="1"/>
+                                        <polygon points="268,212 284,221 268,230 252,221" fill="#3A3532" stroke="#FAF7F2" stroke-width="1"/>
+
+                                        <!-- 4 Brushed Copper / Titanium Swivel Latches -->
+                                        <polygon points="145,172 174,155 184,162 155,179" fill="url(#copperClampGrad)" stroke="#FAF7F2" stroke-width="0.9"/>
+                                        <circle cx="155" cy="171" r="4" fill="#FAF7F2" stroke="#231914" stroke-width="1.2"/>
+
+                                        <polygon points="266,155 295,172 285,179 256,162" fill="url(#copperClampGrad)" stroke="#FAF7F2" stroke-width="0.9"/>
+                                        <circle cx="285" cy="171" r="4" fill="#FAF7F2" stroke="#231914" stroke-width="1.2"/>
+
+                                        <polygon points="145,272 174,289 184,282 155,265" fill="url(#copperClampGrad)" stroke="#FAF7F2" stroke-width="0.9"/>
+                                        <circle cx="155" cy="273" r="4" fill="#FAF7F2" stroke="#231914" stroke-width="1.2"/>
+
+                                        <polygon points="266,289 295,272 285,265 256,282" fill="url(#copperClampGrad)" stroke="#FAF7F2" stroke-width="0.9"/>
+                                        <circle cx="285" cy="273" r="4" fill="#FAF7F2" stroke="#231914" stroke-width="1.2"/>
+
+                                        <!-- Architectural Callout Tags -->
+                                        <g font-family="JetBrains Mono" font-size="9.5">
+                                            <line x1="285" y1="171" x2="335" y2="112" stroke="#231914" stroke-width="1.2"/>
+                                            <rect x="272" y="88" width="148" height="24" rx="6" fill="#FFFFFF" stroke="#B85D3B" stroke-width="1.2"/>
+                                            <text x="282" y="103" fill="#231914" font-weight="bold">TI-6AL-4V SWIVEL CLAMP</text>
+
+                                            <line x1="155" y1="171" x2="95" y2="112" stroke="#231914" stroke-width="1.2"/>
+                                            <rect x="16" y="88" width="136" height="24" rx="6" fill="#FFFFFF" stroke="#3D6B52" stroke-width="1.2"/>
+                                            <text x="25" y="103" fill="#3D6B52" font-weight="bold">350°C WAVE SHIELD</text>
+                                        </g>
+                                    </svg>
+                                </div>
+
+                                <!-- MODE 2: ARCHITECTURAL SEPIA-BROWN CAD BLUEPRINT -->
+                                <div id="stage-view-xray" class="absolute inset-0 p-3 flex items-center justify-center transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+                                    <svg viewBox="0 0 400 400" class="w-full h-full">
+                                        <g stroke="rgba(92,75,65,0.22)" stroke-width="1">
+                                            <line x1="35" y1="200" x2="200" y2="105"/>
+                                            <line x1="200" y1="105" x2="365" y2="200"/>
+                                            <line x1="365" y1="200" x2="200" y2="295"/>
+                                            <line x1="200" y1="295" x2="35" y2="200"/>
+                                            <line x1="115" y1="152" x2="285" y2="248"/>
+                                            <line x1="285" y1="152" x2="115" y2="248"/>
+                                        </g>
+                                        <polygon points="200,92 358,184 200,276 42,184" fill="rgba(158,107,59,0.08)" stroke="#231914" stroke-width="2"/>
+                                        <polygon points="200,120 315,187 200,254 85,187" fill="none" stroke="#B85D3B" stroke-width="1.8" stroke-dasharray="6 4"/>
+                                        <g stroke="#3D6B52" stroke-width="2.2" fill="none">
+                                            <polygon points="155,172 195,149 225,166 185,189"/>
+                                            <polygon points="195,195 235,172 265,189 225,212"/>
+                                        </g>
+                                        <g fill="#B85D3B">
+                                            <circle cx="125" cy="187" r="5"/>
+                                            <circle cx="275" cy="187" r="5"/>
+                                            <circle cx="200" cy="144" r="5"/>
+                                            <circle cx="200" cy="230" r="5"/>
+                                        </g>
+                                        <text x="86" y="68" font-family="JetBrains Mono" font-size="10.5" font-weight="bold" fill="#231914">5-AXIS CAM BLUEPRINT // ±0.01MM</text>
+                                    </svg>
+                                </div>
+
+                                <!-- MODE 3: WARM TERRACOTTA & AMBER THERMAL PROFILE -->
+                                <div id="stage-view-thermal" class="absolute inset-0 p-3 flex items-center justify-center transition-all duration-500 opacity-0 scale-95 pointer-events-none">
+                                    <svg viewBox="0 0 400 400" class="w-full h-full">
+                                        <defs>
+                                            <radialGradient id="terracottaWaveGrad" cx="50%" cy="54%" r="48%">
+                                                <stop offset="0%" stop-color="#B85D3B" stop-opacity="0.78"/>
+                                                <stop offset="50%" stop-color="#9E6B3B" stop-opacity="0.38"/>
+                                                <stop offset="100%" stop-color="#FAF7F2" stop-opacity="0"/>
+                                            </radialGradient>
+                                        </defs>
+                                        <rect width="400" height="400" fill="url(#terracottaWaveGrad)"/>
+                                        <polygon points="200,95 355,185 200,275 45,185" fill="rgba(255,255,255,0.65)" stroke="#B85D3B" stroke-width="2"/>
+                                        <polygon points="200,128 308,190 200,252 92,190" fill="rgba(184,93,59,0.22)" stroke="#3D6B52" stroke-width="1.8"/>
+                                        <text x="88" y="68" font-family="JetBrains Mono" font-size="10.5" font-weight="bold" fill="#B85D3B">WAVE SOLDER THERMAL DELTA // ΔT &lt; 18°C</text>
+                                        <text x="108" y="332" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">SMD TOP-SIDE PROTECTED AT &lt; 115°C</text>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Telemetry Pills -->
+                            <div class="mt-4 grid grid-cols-3 gap-2 text-center font-mono text-xs">
+                                <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                    <div class="text-[#8A786D] text-[10px]">FLATNESS</div>
+                                    <div class="text-[#231914] font-bold mt-0.5">&lt; 0.05 mm</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                    <div class="text-[#8A786D] text-[10px]">WALL THICKNESS</div>
+                                    <div class="text-[#B85D3B] font-bold mt-0.5">0.50 mm Ti</div>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                    <div class="text-[#8A786D] text-[10px]">CYCLE LIFE</div>
+                                    <div class="text-[#3D6B52] font-bold mt-0.5">20,000+ RUNS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WARM EDITORIAL TICKER -->
+    <div class="relative py-4 bg-[#F3EDE4] border-y border-[#E4DDD3] overflow-hidden">
+        <div class="ticker-track flex items-center gap-10 font-mono text-xs sm:text-sm tracking-widest uppercase">
+            <span class="flex items-center gap-3 text-[#231914] font-semibold"><span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>WAVE-SOLDERING PALLETS</span>
+            <span class="flex items-center gap-3 text-[#B85D3B] font-semibold"><span class="w-2 h-2 rounded-full bg-[#9E6B3B]"></span>DUROSTONE® CAS-761 & RICOCEL® ES-3261A</span>
+            <span class="flex items-center gap-3 text-[#3D6B52] font-semibold"><span class="w-2 h-2 rounded-full bg-[#3D6B52]"></span>SCREWING & PRESS-FIT FIXTURES</span>
+            <span class="flex items-center gap-3 text-[#5C4B41] font-semibold"><span class="w-2 h-2 rounded-full bg-[#231914]"></span>50-SLOT ESD PCB MAGAZINES</span>
+            <span class="flex items-center gap-3 text-[#231914] font-semibold"><span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>CNC DEPANELING ROUTER PALLETS</span>
+            <span class="flex items-center gap-3 text-[#9E6B3B] font-semibold"><span class="w-2 h-2 rounded-full bg-[#3D6B52]"></span>LASER SMT STENCILS & ICT TEST BEDS</span>
+            <!-- Seamless Duplicate -->
+            <span class="flex items-center gap-3 text-[#231914] font-semibold"><span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>WAVE-SOLDERING PALLETS</span>
+            <span class="flex items-center gap-3 text-[#B85D3B] font-semibold"><span class="w-2 h-2 rounded-full bg-[#9E6B3B]"></span>DUROSTONE® CAS-761 & RICOCEL® ES-3261A</span>
+            <span class="flex items-center gap-3 text-[#3D6B52] font-semibold"><span class="w-2 h-2 rounded-full bg-[#3D6B52]"></span>SCREWING & PRESS-FIT FIXTURES</span>
+            <span class="flex items-center gap-3 text-[#5C4B41] font-semibold"><span class="w-2 h-2 rounded-full bg-[#231914]"></span>50-SLOT ESD PCB MAGAZINES</span>
+            <span class="flex items-center gap-3 text-[#231914] font-semibold"><span class="w-2 h-2 rounded-full bg-[#B85D3B]"></span>CNC DEPANELING ROUTER PALLETS</span>
+            <span class="flex items-center gap-3 text-[#9E6B3B] font-semibold"><span class="w-2 h-2 rounded-full bg-[#3D6B52]"></span>LASER SMT STENCILS & ICT TEST BEDS</span>
+        </div>
+    </div>
+
+    <!-- SECTION 1: INTERACTIVE CAD & STUDIO BLUEPRINT INSPECTOR -->
+    <section id="inspector" class="py-24 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                <div>
+                    <div class="font-mono text-xs uppercase tracking-widest text-[#B85D3B] font-semibold mb-2">// 01. INTERACTIVE CAD & STUDIO INSPECTOR</div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-bold text-[#231914]">Dissect Every <span class="italic text-[#B85D3B]">Fixture Stackup.</span></h2>
+                </div>
+                <p class="text-[#5C4B41] max-w-md text-sm sm:text-base">
+                    Toggle between <span class="text-[#231914] font-mono font-semibold">CAD Blueprint</span>, <span class="text-[#B85D3B] font-mono font-semibold">Editorial Studio</span>, and <span class="text-[#3D6B52] font-mono font-semibold">Thermal Map</span> modes—or explode assembly layers across all 6 tooling architectures.
+                </p>
+            </div>
+
+            <!-- 6 Product Selector Tabs -->
+            <div class="reveal flex flex-wrap gap-2.5 mb-8" id="inspector-tabs">
+                <button data-key="wave" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm bg-[#231914] text-[#FAF7F2] shadow-md">
+                    01. Wave-Soldering Pallets
+                </button>
+                <button data-key="manual" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]">
+                    02. Manual Soldering Fixtures
+                </button>
+                <button data-key="pressfit" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]">
+                    03. Screwing & Press-Fit
+                </button>
+                <button data-key="magazine" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]">
+                    04. 50-Slot ESD Magazines
+                </button>
+                <button data-key="router" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]">
+                    05. CNC Router Pallets
+                </button>
+                <button data-key="stencils" class="insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]">
+                    06. Laser Stencils & ICT
+                </button>
+            </div>
+
+            <!-- Interactive CAD & Studio Stage -->
+            <div class="reveal editorial-panel rounded-3xl p-6 sm:p-10">
+                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                    <!-- Left Viewport -->
+                    <div class="lg:col-span-7">
+                        <div class="relative rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] p-5 sm:p-7 overflow-hidden">
+                            <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+                                <span id="insp-dwg-code" class="font-mono text-xs px-3 py-1 rounded-lg bg-[#FFFFFF] text-[#231914] font-semibold border border-[#E4DDD3]">
+                                    DWG-ID: NCR-WS-901
+                                </span>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <button onclick="cycleInspectorView()" id="insp-view-btn" class="tactile-btn flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#FFFFFF] hover:bg-[#F3EDE4] text-[#231914] border border-[#E4DDD3] font-mono text-xs font-semibold">
+                                        <span class="w-2 h-2 rounded-full bg-[#3D6B52]"></span>
+                                        <span id="insp-view-label">MODE: CAD BLUEPRINT</span>
+                                    </button>
+                                    <button onclick="toggleInspectorExplode()" id="insp-explode-btn" class="tactile-btn flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-[#B85D3B]/12 hover:bg-[#B85D3B]/20 text-[#B85D3B] border border-[#B85D3B]/35 font-mono text-xs font-semibold">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                                        <span id="insp-explode-label">EXPLODE LAYERS</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Dynamic SVG Canvas -->
+                            <div id="insp-svg-container" class="relative w-full aspect-[16/10] flex items-center justify-center rounded-xl overflow-hidden bg-[#FFFFFF] border border-[#E4DDD3]">
+                                <!-- Injected by JS -->
+                            </div>
+
+                            <!-- Clickable Callout Hotspots -->
+                            <div id="insp-hotspots" class="mt-4 pt-4 border-t border-[#E4DDD3] flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Specs & Direct Action -->
+                    <div class="lg:col-span-5 space-y-6" id="insp-specs-column">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: EDITORIAL BENTO PRODUCT MATRIX (ALL 6 TOOLING LINES) -->
+    <section id="portfolio" class="py-24 relative border-t border-[#E4DDD3] bg-[#F3EDE4]/55 drafting-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+                <div>
+                    <div class="font-mono text-xs uppercase tracking-widest text-[#9E6B3B] font-semibold mb-2">// 02. ARCHITECTURAL TOOLING PORTFOLIO</div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-bold text-[#231914]">Complete EMS <span class="italic text-[#9E6B3B]">Tooling Matrix.</span></h2>
+                </div>
+                <p class="text-[#5C4B41] max-w-md text-sm sm:text-base">
+                    Select any tooling architecture to inspect its multi-layer stackup or load its exact material & tolerance profile directly into the Zero-Form RFQ Engine.
+                </p>
+            </div>
+
+            <div class="reveal grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Bento 1 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <polygon points="140,18 250,78 140,138 30,78" fill="#352B25" stroke="#9E6B3B" stroke-width="1.6"/>
+                                <polygon points="140,36 218,78 140,120 62,78" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.2"/>
+                                <circle cx="95" cy="54" r="5" fill="#B85D3B"/><circle cx="185" cy="54" r="5" fill="#B85D3B"/>
+                                <circle cx="95" cy="102" r="5" fill="#B85D3B"/><circle cx="185" cy="102" r="5" fill="#B85D3B"/>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#B85D3B] font-semibold border border-[#E4DDD3]">±0.01 MM • 350°C</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#B85D3B] font-semibold mb-1">DUROSTONE® CAS-761 + TI-6AL-4V</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Wave-Soldering Pallets</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            Aerodynamic 45° solder-wave chamfers, 0.50mm Grade-5 titanium aperture walls, and swivel hold-down latches for selective & full wave lines.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('wave')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('Wave-Soldering Pallet', 'Durostone® CAS-761')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+
+                <!-- Bento 2 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <rect x="42" y="102" width="196" height="28" rx="6" fill="#352B25" stroke="#9E6B3B" stroke-width="1.6"/>
+                                <rect x="66" y="76" width="148" height="22" rx="4" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.2"/>
+                                <rect x="52" y="54" width="18" height="30" rx="3" fill="#B85D3B"/>
+                                <rect x="210" y="54" width="18" height="30" rx="3" fill="#B85D3B"/>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#3D6B52] font-semibold border border-[#E4DDD3]">10⁶–10⁸ Ω ESD</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#3D6B52] font-semibold mb-1">RICOCEL® ES-3261A + TITANIUM CLAMPS</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Manual Soldering Fixtures</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            15° anti-fatigue operator nests with anti-static silicone & titanium hold-down pads and tall-component relief pockets for post-wave touch-up.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('manual')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('Manual Soldering Fixture', 'Ricocel® ES-3261A')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+
+                <!-- Bento 3 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <rect x="45" y="108" width="190" height="24" rx="4" fill="#3A3532" stroke="#9E6B3B" stroke-width="1.6"/>
+                                <rect x="70" y="84" width="140" height="14" rx="3" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.2"/>
+                                <line x1="100" y1="98" x2="100" y2="108" stroke="#231914" stroke-width="4"/>
+                                <line x1="140" y1="98" x2="140" y2="108" stroke="#231914" stroke-width="4"/>
+                                <line x1="180" y1="98" x2="180" y2="108" stroke="#231914" stroke-width="4"/>
+                                <rect x="126" y="18" width="28" height="38" rx="4" fill="#231914" stroke="#9E6B3B" stroke-width="1.5"/>
+                                <polygon points="134,56 146,56 140,76" fill="#B85D3B"/>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#9E6B3B] font-semibold border border-[#E4DDD3]">25 KN ZERO-FLEX</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#9E6B3B] font-semibold mb-1">7075-T6 ALUMINUM + HARDENED PILLARS</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Screwing & Press-Fit Fixtures</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            High-rigidity anodized aerospace 7075-T6 aluminum bolsters with hardened SS-440 under-board anvil pins for cobot torque & press-fit connectors.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('pressfit')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('Screwing / Press-Fit Fixture', '7075-T6 Anodized Aluminum')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+
+                <!-- Bento 4 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <rect x="65" y="24" width="150" height="108" rx="6" fill="#231914" stroke="#9E6B3B" stroke-width="1.8"/>
+                                <g stroke="#E5C5A3" stroke-width="2">
+                                    <line x1="78" y1="42" x2="202" y2="42"/><line x1="78" y1="58" x2="202" y2="58"/>
+                                    <line x1="78" y1="74" x2="202" y2="74"/><line x1="78" y1="90" x2="202" y2="90"/>
+                                    <line x1="78" y1="106" x2="202" y2="106"/>
+                                </g>
+                                <rect x="85" y="16" width="110" height="9" rx="3" fill="#B85D3B"/>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#231914] font-semibold border border-[#E4DDD3]">SMEMA 50-SLOT</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#5C4B41] font-semibold mb-1">CONDUCTIVE POLYCARBONATE + AL FRAME</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">50-Slot ESD PCB Magazines</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            SMEMA loader/unloader racks with gear-track pitch adjustment and permanent 10⁵–10⁹ Ω conductive walls (80°C & 200°C variants).
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('magazine')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('50-Slot ESD PCB Magazine', '7075-T6 Anodized Aluminum')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+
+                <!-- Bento 5 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <rect x="50" y="98" width="180" height="28" rx="5" fill="#352B25" stroke="#9E6B3B" stroke-width="1.6"/>
+                                <path d="M70,98 L210,98" stroke="#3D6B52" stroke-width="2.5" stroke-dasharray="6 4"/>
+                                <rect x="128" y="18" width="24" height="42" rx="3" fill="#231914" stroke="#E5C5A3" stroke-width="1.2"/>
+                                <line x1="140" y1="60" x2="140" y2="96" stroke="#B85D3B" stroke-width="3"/>
+                                <circle cx="140" cy="96" r="6" fill="rgba(184,93,59,0.45)"/>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#B85D3B] font-semibold border border-[#E4DDD3]">VACUUM + PIN</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#B85D3B] font-semibold mb-1">RICOCEL® + VACUUM MANIFOLD</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">CNC Router & Depaneling Pallets</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            Zero-bending-strain PCB singulation jigs with carbide datum dowels, 0.25mm bit relief channels, and integrated sub-surface dust extraction.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('router')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('CNC Depaneling Router Pallet', 'Ricocel® ES-3261A')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+
+                <!-- Bento 6 -->
+                <div class="editorial-panel rounded-3xl p-6 flex flex-col justify-between group">
+                    <div>
+                        <div class="relative aspect-[16/9] rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] mb-5 flex items-center justify-center p-4 overflow-hidden">
+                            <svg viewBox="0 0 280 155" class="w-full h-full group-hover:scale-105 transition-transform duration-500">
+                                <rect x="55" y="28" width="170" height="98" rx="6" fill="#3A3532" stroke="#9E6B3B" stroke-width="2"/>
+                                <rect x="75" y="42" width="130" height="70" rx="3" fill="#FAF7F2" stroke="#231914" stroke-width="1.2"/>
+                                <g fill="#3D6B52">
+                                    <rect x="92" y="56" width="24" height="16" rx="2"/><rect x="128" y="56" width="24" height="16" rx="2"/><rect x="164" y="56" width="24" height="16" rx="2"/>
+                                    <rect x="92" y="82" width="24" height="16" rx="2"/><rect x="128" y="82" width="24" height="16" rx="2"/><rect x="164" y="82" width="24" height="16" rx="2"/>
+                                </g>
+                            </svg>
+                            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 font-mono text-[10px] text-[#3D6B52] font-semibold border border-[#E4DDD3]">±0.004 MM LASER</span>
+                        </div>
+                        <div class="font-mono text-[11px] text-[#3D6B52] font-semibold mb-1">FINE-GRAIN SUS304 + G10/FR4 PROBE BEDS</div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Laser SMT Stencils & ICT Fixtures</h3>
+                        <p class="text-xs text-[#5C4B41] mt-2 leading-relaxed">
+                            Electro-polished nano-coated SUS304 step-down SMT solder stencils and 0.40mm fine-pitch pneumatic ICT/FCT G10/FR4 bed-of-nails test fixtures.
+                        </p>
+                    </div>
+                    <div class="mt-5 pt-4 border-t border-[#E4DDD3] flex items-center justify-between gap-2">
+                        <button onclick="jumpToInspector('stencils')" class="font-mono text-xs text-[#5C4B41] hover:text-[#B85D3B] font-semibold">INSPECT CAD →</button>
+                        <button onclick="loadIntoRfq('Laser SMT Stencil / ICT Bed', 'Grade-5 Titanium (Ti-6Al-4V)')" class="tactile-btn px-3 py-1.5 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-mono text-[11px] font-bold">CONFIGURE SPEC</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: INTERACTIVE MATERIAL SCIENCE & THERMAL LAB -->
+    <section id="materials" class="py-24 relative border-t border-[#E4DDD3]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-3xl mx-auto mb-14">
+                <div class="font-mono text-xs uppercase tracking-widest text-[#3D6B52] font-semibold mb-2">// 03. SUBSTRATE & ALLOY TELEMETRY LAB</div>
+                <h2 class="font-display text-4xl sm:text-5xl font-bold text-[#231914]">Engineered for <span class="italic text-[#B85D3B]">Thermal & ESD Extremes.</span></h2>
+                <p class="text-[#5C4B41] mt-4 text-sm sm:text-base">
+                    Benchmark continuous operating temperature, peak wave-solder shock, dimensional stability, flux immunity, and ESD resistivity (<span class="text-[#231914] font-mono font-semibold">10⁵–10⁹ Ω</span>).
+                </p>
+            </div>
+
+            <!-- 4 Substrate Pills -->
+            <div class="reveal grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+                <button onclick="selectSubstrate('durostone')" id="sub-btn-durostone" class="sub-pill editorial-panel p-5 rounded-2xl text-left border-2 border-[#B85D3B] bg-[#B85D3B]/5 transition-all">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-[11px] text-[#B85D3B] font-bold">COMPOSITE // 01</span>
+                        <span class="w-3 h-3 rounded-full bg-[#B85D3B]"></span>
+                    </div>
+                    <div class="font-display text-2xl font-bold text-[#231914]">Durostone® CAS-761</div>
+                    <div class="text-xs text-[#5C4B41] mt-1">Synthetic Glass-Epoxy Stone</div>
+                </button>
+
+                <button onclick="selectSubstrate('ricocel')" id="sub-btn-ricocel" class="sub-pill editorial-panel p-5 rounded-2xl text-left border border-[#E4DDD3] transition-all">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-[11px] text-[#9E6B3B] font-bold">COMPOSITE // 02</span>
+                        <span class="w-3 h-3 rounded-full bg-[#9E6B3B]"></span>
+                    </div>
+                    <div class="font-display text-2xl font-bold text-[#231914]">Ricocel® ES-3261A</div>
+                    <div class="text-xs text-[#5C4B41] mt-1">High-Density ESD Composite</div>
+                </button>
+
+                <button onclick="selectSubstrate('titanium')" id="sub-btn-titanium" class="sub-pill editorial-panel p-5 rounded-2xl text-left border border-[#E4DDD3] transition-all">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-[11px] text-[#3D6B52] font-bold">ALLOY // 03</span>
+                        <span class="w-3 h-3 rounded-full bg-[#3D6B52]"></span>
+                    </div>
+                    <div class="font-display text-2xl font-bold text-[#231914]">Titanium Ti-6Al-4V</div>
+                    <div class="text-xs text-[#5C4B41] mt-1">Grade-5 Thin-Wall Shield</div>
+                </button>
+
+                <button onclick="selectSubstrate('aluminum')" id="sub-btn-aluminum" class="sub-pill editorial-panel p-5 rounded-2xl text-left border border-[#E4DDD3] transition-all">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="font-mono text-[11px] text-[#231914] font-bold">ALLOY // 04</span>
+                        <span class="w-3 h-3 rounded-full bg-[#231914]"></span>
+                    </div>
+                    <div class="font-display text-2xl font-bold text-[#231914]">7075-T6 Aluminum</div>
+                    <div class="text-xs text-[#5C4B41] mt-1">ESD Hard-Anodized Billet</div>
+                </button>
+            </div>
+
+            <!-- Live Animated Telemetry Dashboard -->
+            <div class="reveal editorial-panel rounded-3xl p-6 sm:p-10">
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
+                    <div class="lg:col-span-6 space-y-6">
+                        <div>
+                            <span id="sub-badge" class="inline-block px-3 py-1 rounded-full font-mono text-xs bg-[#B85D3B]/12 text-[#B85D3B] font-semibold border border-[#B85D3B]/30 mb-3">
+                                WAVE & SELECTIVE SOLDER BENCHMARK
+                            </span>
+                            <h3 id="sub-title" class="font-display text-3xl sm:text-4xl font-bold text-[#231914]">Durostone® CAS-761</h3>
+                            <p id="sub-desc" class="text-[#5C4B41] text-sm sm:text-base mt-3 leading-relaxed">
+                                High-temperature glass-reinforced composite engineered for 20,000+ molten solder wave cycles up to 350°C peak with zero delamination, warpage, or flux wicking.
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3 font-mono">
+                            <div class="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                <div class="text-[10px] text-[#8A786D]">CONTINUOUS TEMP</div>
+                                <div id="sub-cont-temp" class="text-base sm:text-lg font-bold text-[#B85D3B] mt-1">280°C</div>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                <div class="text-[10px] text-[#8A786D]">PEAK WAVE TEMP</div>
+                                <div id="sub-peak-temp" class="text-base sm:text-lg font-bold text-[#9E6B3B] mt-1">350°C</div>
+                            </div>
+                            <div class="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                                <div class="text-[10px] text-[#8A786D]">SURFACE ESD</div>
+                                <div id="sub-esd-range" class="text-base sm:text-lg font-bold text-[#3D6B52] mt-1">10⁵–10⁹ Ω</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="font-mono text-xs uppercase text-[#8A786D] mb-2">Recommended NECRO Tooling Lines:</div>
+                            <div id="sub-apps" class="flex flex-wrap gap-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right Animated Warm Progress Gauges -->
+                    <div class="lg:col-span-6 space-y-5 bg-[#FAF7F2] p-6 sm:p-8 rounded-2xl border border-[#E4DDD3]">
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-[#231914] font-semibold">CONTINUOUS THERMAL ENDURANCE</span>
+                                <span id="bar-cont-label" class="text-[#B85D3B] font-bold">280°C (93%)</span>
+                            </div>
+                            <div class="w-full h-3 rounded-full bg-[#E4DDD3] overflow-hidden">
+                                <div id="bar-cont-fill" class="h-full rounded-full bg-gradient-to-r from-[#B85D3B] to-[#9E6B3B] transition-all duration-700" style="width: 93%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-[#231914] font-semibold">PEAK WAVE-SOLDER SHOCK RESISTANCE</span>
+                                <span id="bar-peak-label" class="text-[#9E6B3B] font-bold">350°C (96%)</span>
+                            </div>
+                            <div class="w-full h-3 rounded-full bg-[#E4DDD3] overflow-hidden">
+                                <div id="bar-peak-fill" class="h-full rounded-full bg-gradient-to-r from-[#9E6B3B] to-[#231914] transition-all duration-700" style="width: 96%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-[#231914] font-semibold">DIMENSIONAL STABILITY (±0.01 MM)</span>
+                                <span id="bar-dim-label" class="text-[#3D6B52] font-bold">96%</span>
+                            </div>
+                            <div class="w-full h-3 rounded-full bg-[#E4DDD3] overflow-hidden">
+                                <div id="bar-dim-fill" class="h-full rounded-full bg-gradient-to-r from-[#3D6B52] to-[#9E6B3B] transition-all duration-700" style="width: 96%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between font-mono text-xs mb-2">
+                                <span class="text-[#231914] font-semibold">FLUX & CHEMICAL CORROSION IMMUNITY</span>
+                                <span id="bar-chem-label" class="text-[#231914] font-bold">97%</span>
+                            </div>
+                            <div class="w-full h-3 rounded-full bg-[#E4DDD3] overflow-hidden">
+                                <div id="bar-chem-fill" class="h-full rounded-full bg-gradient-to-r from-[#231914] to-[#B85D3B] transition-all duration-700" style="width: 97%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: PAN-INDIA 4-CITY MANUFACTURING NETWORK -->
+    <section id="plants" class="py-24 relative border-t border-[#E4DDD3] bg-[#F3EDE4]/55 drafting-grid">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
+                <div>
+                    <div class="font-mono text-xs uppercase tracking-widest text-[#B85D3B] font-semibold mb-2">// 04. PAN-INDIA 4-CITY MANUFACTURING GRID</div>
+                    <h2 class="font-display text-4xl sm:text-5xl font-bold text-[#231914]">4 Regional <span class="italic text-[#B85D3B]">Production Hubs.</span></h2>
+                </div>
+                <p class="text-[#5C4B41] max-w-md text-sm sm:text-base">
+                    Direct B2B engineering & regional sales desks across <strong class="text-[#231914]">Bangalore HQ</strong>, <strong class="text-[#231914]">Pune</strong>, <strong class="text-[#231914]">Gurgaon</strong>, and <strong class="text-[#231914]">Greater Noida</strong>.
+                </p>
+            </div>
+
+            <div class="reveal grid lg:grid-cols-12 gap-8 items-center">
+                <!-- Left: Warm Architectural Map of India -->
+                <div class="lg:col-span-5">
+                    <div class="editorial-panel rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4 font-mono text-xs">
+                            <span class="text-[#5C4B41] font-semibold">NECRO_GRID // INDIA_EMS_CORRIDOR</span>
+                            <span class="text-[#3D6B52] font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-[#3D6B52] animate-ping"></span> 4 PLANTS ONLINE</span>
+                        </div>
+
+                        <div class="relative aspect-square max-w-sm mx-auto">
+                            <svg viewBox="0 0 400 440" class="w-full h-full">
+                                <!-- Architectural India Polygon -->
+                                <path d="M155,25 L195,20 L215,55 L245,75 L235,105 L285,125 L345,115 L365,145 L325,175 L295,180 L280,220 L245,265 L215,325 L185,405 L165,410 L145,345 L115,275 L85,220 L55,185 L85,155 L115,135 L130,90 L145,55 Z" 
+                                      fill="rgba(158, 107, 59, 0.12)" 
+                                      stroke="#9E6B3B" 
+                                      stroke-width="2" 
+                                      stroke-linejoin="round"/>
+
+                                <!-- Inter-Plant Logistics Corridors -->
+                                <g stroke="#B85D3B" stroke-width="1.8" stroke-dasharray="5 5" fill="none">
+                                    <line x1="175" y1="335" x2="128" y2="255"/>
+                                    <line x1="128" y1="255" x2="162" y2="115"/>
+                                    <line x1="162" y1="115" x2="184" y2="122"/>
+                                    <line x1="175" y1="335" x2="184" y2="122"/>
+                                </g>
+
+                                <!-- Bangalore HQ -->
+                                <g class="cursor-pointer" onclick="highlightPlant('bangalore')">
+                                    <circle cx="175" cy="335" r="18" fill="rgba(184,93,59,0.25)" class="radar-ping"/>
+                                    <circle cx="175" cy="335" r="8" fill="#B85D3B" stroke="#FFFFFF" stroke-width="2"/>
+                                    <rect x="192" y="322" width="132" height="24" rx="6" fill="#FFFFFF" stroke="#B85D3B" stroke-width="1.4"/>
+                                    <text x="200" y="338" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">BANGALORE (HQ)</text>
+                                </g>
+
+                                <!-- Pune Plant -->
+                                <g class="cursor-pointer" onclick="highlightPlant('pune')">
+                                    <circle cx="128" cy="255" r="15" fill="rgba(158,107,59,0.25)" class="radar-ping"/>
+                                    <circle cx="128" cy="255" r="7" fill="#9E6B3B" stroke="#FFFFFF" stroke-width="2"/>
+                                    <rect x="28" y="242" width="88" height="24" rx="6" fill="#FFFFFF" stroke="#9E6B3B" stroke-width="1.4"/>
+                                    <text x="38" y="258" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">PUNE PLANT</text>
+                                </g>
+
+                                <!-- Gurgaon Unit -->
+                                <g class="cursor-pointer" onclick="highlightPlant('gurgaon')">
+                                    <circle cx="162" cy="115" r="15" fill="rgba(61,107,82,0.25)" class="radar-ping"/>
+                                    <circle cx="162" cy="115" r="7" fill="#3D6B52" stroke="#FFFFFF" stroke-width="2"/>
+                                    <rect x="44" y="102" width="104" height="24" rx="6" fill="#FFFFFF" stroke="#3D6B52" stroke-width="1.4"/>
+                                    <text x="53" y="118" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">GURGAON UNIT</text>
+                                </g>
+
+                                <!-- Greater Noida Unit -->
+                                <g class="cursor-pointer" onclick="highlightPlant('noida')">
+                                    <circle cx="184" cy="122" r="15" fill="rgba(35,25,20,0.25)" class="radar-ping"/>
+                                    <circle cx="184" cy="122" r="7" fill="#231914" stroke="#FFFFFF" stroke-width="2"/>
+                                    <rect x="200" y="108" width="124" height="24" rx="6" fill="#FFFFFF" stroke="#231914" stroke-width="1.4"/>
+                                    <text x="208" y="124" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">GREATER NOIDA</text>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: 4 Verified Regional Plant Cards -->
+                <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4">
+                    <!-- Bangalore HQ -->
+                    <div id="plant-card-bangalore" onclick="highlightPlant('bangalore')" class="plant-card cursor-pointer editorial-panel p-5 rounded-2xl border-2 border-[#B85D3B] bg-[#B85D3B]/[0.03] transition-all">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-[#B85D3B]/12 text-[#B85D3B] font-mono text-[10px] font-bold border border-[#B85D3B]/30">CORPORATE HQ • EST. 2019</span>
+                            <span class="font-mono text-[10px] text-[#8A786D]">PEENYA INDUSTRIAL AREA</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Bangalore HQ</h3>
+                        <p class="text-xs text-[#5C4B41] mt-1.5 leading-relaxed">
+                            Central CAM/DFM Design Studio, 5-Axis CNC Machining Center, Ti-6Al-4V Micro-Milling & Southern EMS Dispatch.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-[#E4DDD3] space-y-2 font-mono text-xs">
+                            <div class="flex items-center justify-between">
+                                <a href="mailto:sales.blr@necrotooling.in?subject=RFQ%20-%20Bangalore%20HQ" class="text-[#B85D3B] font-semibold hover:underline">sales.blr@necrotooling.in</a>
+                                <button onclick="event.stopPropagation(); copyToClipboard('sales.blr@necrotooling.in', 'Bangalore HQ Email Copied', 'sales.blr@necrotooling.in')" class="px-2 py-0.5 rounded bg-[#F3EDE4] hover:bg-[#EDE5D9] text-[10px] text-[#231914] font-semibold">COPY</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <a href="tel:+918041289410" class="text-[#231914] font-semibold hover:text-[#B85D3B]">+91 80 4128 9410</a>
+                                <span class="text-[10px] text-[#B85D3B] font-bold">±0.01 MM CAM</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pune Plant -->
+                    <div id="plant-card-pune" onclick="highlightPlant('pune')" class="plant-card cursor-pointer editorial-panel p-5 rounded-2xl border border-[#E4DDD3] transition-all">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-[#9E6B3B]/12 text-[#9E6B3B] font-mono text-[10px] font-bold border border-[#9E6B3B]/30">WEST ZONE PLANT</span>
+                            <span class="font-mono text-[10px] text-[#8A786D]">CHAKAN / BHOSARI MIDC</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Pune Unit</h3>
+                        <p class="text-xs text-[#5C4B41] mt-1.5 leading-relaxed">
+                            Automotive Tier-1 & Industrial PCBA Fixture Plant specializing in 25 kN Press-Fit Nests & Wave-Soldering Pallets.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-[#E4DDD3] space-y-2 font-mono text-xs">
+                            <div class="flex items-center justify-between">
+                                <a href="mailto:sales.pune@necrotooling.in?subject=RFQ%20-%20Pune%20Plant" class="text-[#9E6B3B] font-semibold hover:underline">sales.pune@necrotooling.in</a>
+                                <button onclick="event.stopPropagation(); copyToClipboard('sales.pune@necrotooling.in', 'Pune Plant Email Copied', 'sales.pune@necrotooling.in')" class="px-2 py-0.5 rounded bg-[#F3EDE4] hover:bg-[#EDE5D9] text-[10px] text-[#231914] font-semibold">COPY</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <a href="tel:+912067248820" class="text-[#231914] font-semibold hover:text-[#9E6B3B]">+91 20 6724 8820</a>
+                                <span class="text-[10px] text-[#9E6B3B] font-bold">AUTO-GRADE</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gurgaon Unit -->
+                    <div id="plant-card-gurgaon" onclick="highlightPlant('gurgaon')" class="plant-card cursor-pointer editorial-panel p-5 rounded-2xl border border-[#E4DDD3] transition-all">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-[#3D6B52]/12 text-[#3D6B52] font-mono text-[10px] font-bold border border-[#3D6B52]/30">NCR PLANT I</span>
+                            <span class="font-mono text-[10px] text-[#8A786D]">IMT MANESAR / UDYOG VIHAR</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Gurgaon Unit</h3>
+                        <p class="text-xs text-[#5C4B41] mt-1.5 leading-relaxed">
+                            48-Hour Rapid NPI Prototyping & CNC Milling Hub for Telecom, EV Powertrain & Consumer Electronics EMS lines.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-[#E4DDD3] space-y-2 font-mono text-xs">
+                            <div class="flex items-center justify-between">
+                                <a href="mailto:sales.gurgaon@necrotooling.in?subject=RFQ%20-%20Gurgaon%20Unit" class="text-[#3D6B52] font-semibold hover:underline">sales.gurgaon@necrotooling.in</a>
+                                <button onclick="event.stopPropagation(); copyToClipboard('sales.gurgaon@necrotooling.in', 'Gurgaon Unit Email Copied', 'sales.gurgaon@necrotooling.in')" class="px-2 py-0.5 rounded bg-[#F3EDE4] hover:bg-[#EDE5D9] text-[10px] text-[#231914] font-semibold">COPY</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <a href="tel:+911244893310" class="text-[#231914] font-semibold hover:text-[#3D6B52]">+91 124 489 3310</a>
+                                <span class="text-[10px] text-[#3D6B52] font-bold">48HR RAPID NPI</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Greater Noida Unit -->
+                    <div id="plant-card-noida" onclick="highlightPlant('noida')" class="plant-card cursor-pointer editorial-panel p-5 rounded-2xl border border-[#E4DDD3] transition-all">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-2.5 py-0.5 rounded bg-[#231914]/10 text-[#231914] font-mono text-[10px] font-bold border border-[#231914]/25">NCR PLANT II</span>
+                            <span class="font-mono text-[10px] text-[#8A786D]">ECOTECH III / SURAJPUR</span>
+                        </div>
+                        <h3 class="font-display text-2xl font-bold text-[#231914]">Greater Noida Unit</h3>
+                        <p class="text-xs text-[#5C4B41] mt-1.5 leading-relaxed">
+                            High-Volume 50-Slot ESD PCB Magazine Assembly, CNC Router Pallets & Laser SMT Stencil Support for OEMs.
+                        </p>
+                        <div class="mt-4 pt-3 border-t border-[#E4DDD3] space-y-2 font-mono text-xs">
+                            <div class="flex items-center justify-between">
+                                <a href="mailto:sales.noida@necrotooling.in?subject=RFQ%20-%20Greater%20Noida%20Unit" class="text-[#231914] font-semibold hover:underline">sales.noida@necrotooling.in</a>
+                                <button onclick="event.stopPropagation(); copyToClipboard('sales.noida@necrotooling.in', 'Greater Noida Email Copied', 'sales.noida@necrotooling.in')" class="px-2 py-0.5 rounded bg-[#F3EDE4] hover:bg-[#EDE5D9] text-[10px] text-[#231914] font-semibold">COPY</button>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <a href="tel:+911204517740" class="text-[#231914] font-semibold hover:text-[#B85D3B]">+91 120 451 7740</a>
+                                <span class="text-[10px] text-[#5C4B41] font-bold">HIGH-VOLUME</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: ZERO-FORM ONE-TAP RFQ & CAD SPEC ENGINE -->
+    <section id="rfq-engine" class="py-24 relative border-t border-[#E4DDD3]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#F3EDE4] border border-[#E4DDD3] font-mono text-xs text-[#B85D3B] font-semibold mb-3">
+                    ZERO FORMS • LIVE RFQ TOKEN • REGIONAL PLANT MAILTO ROUTING
+                </div>
+                <h2 class="font-display text-4xl sm:text-5xl font-bold text-[#231914]">One-Tap <span class="italic text-[#B85D3B]">RFQ & CAD Spec Engine.</span></h2>
+                <p class="text-[#5C4B41] mt-3 text-sm sm:text-base">
+                    Zero text fields to fill out. Tap pills to configure your exact tooling architecture, substrate, plant routing, batch size, and NDA protocol—then launch a pre-formatted RFQ dispatch straight to your chosen plant.
+                </p>
+            </div>
+
+            <div class="reveal bronze-rim shadow-[0_25px_65px_-15px_rgba(35,25,20,0.16)]">
+                <div class="rounded-[1.4rem] bg-[#FFFFFF] p-6 sm:p-10">
+                    <div class="grid lg:grid-cols-12 gap-8">
+                        <!-- Left Pill Configurator -->
+                        <div class="lg:col-span-6 space-y-5">
+                            <!-- 1. Tooling Type -->
+                            <div>
+                                <div class="font-mono text-xs text-[#B85D3B] font-semibold uppercase mb-2">01 // SELECT TOOLING TYPE</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="setRfq('product', 'Wave-Soldering Pallet')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#231914] text-[#FAF7F2] font-bold">Wave-Soldering Pallet</button>
+                                    <button onclick="setRfq('product', 'Manual Soldering Fixture')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Manual Soldering Fixture</button>
+                                    <button onclick="setRfq('product', 'Screwing / Press-Fit Fixture')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Screwing / Press-Fit Fixture</button>
+                                    <button onclick="setRfq('product', '50-Slot ESD PCB Magazine')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">50-Slot ESD PCB Magazine</button>
+                                    <button onclick="setRfq('product', 'CNC Depaneling Router Pallet')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">CNC Depaneling Router Pallet</button>
+                                    <button onclick="setRfq('product', 'Laser SMT Stencil / ICT Bed')" class="rfq-pill-product tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Laser SMT Stencil / ICT Bed</button>
+                                </div>
+                            </div>
+
+                            <!-- 2. Substrate Material -->
+                            <div>
+                                <div class="font-mono text-xs text-[#9E6B3B] font-semibold uppercase mb-2">02 // SELECT SUBSTRATE MATERIAL</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="setRfq('material', 'Durostone® CAS-761')" class="rfq-pill-material tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#B85D3B] text-[#FAF7F2] font-bold">Durostone® CAS-761</button>
+                                    <button onclick="setRfq('material', 'Ricocel® ES-3261A')" class="rfq-pill-material tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Ricocel® ES-3261A</button>
+                                    <button onclick="setRfq('material', 'Grade-5 Titanium (Ti-6Al-4V)')" class="rfq-pill-material tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Grade-5 Titanium (Ti-6Al-4V)</button>
+                                    <button onclick="setRfq('material', '7075-T6 Anodized Aluminum')" class="rfq-pill-material tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">7075-T6 Anodized Aluminum</button>
+                                </div>
+                            </div>
+
+                            <!-- 3. Target Plant -->
+                            <div>
+                                <div class="font-mono text-xs text-[#3D6B52] font-semibold uppercase mb-2">03 // SELECT TARGET MANUFACTURING PLANT</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="setRfq('hub', 'Bangalore HQ')" class="rfq-pill-hub tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#3D6B52] text-[#FAF7F2] font-bold">Bangalore HQ</button>
+                                    <button onclick="setRfq('hub', 'Pune')" class="rfq-pill-hub tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Pune</button>
+                                    <button onclick="setRfq('hub', 'Gurgaon')" class="rfq-pill-hub tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Gurgaon</button>
+                                    <button onclick="setRfq('hub', 'Greater Noida')" class="rfq-pill-hub tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Greater Noida</button>
+                                </div>
+                            </div>
+
+                            <!-- 4. Batch Volume -->
+                            <div>
+                                <div class="font-mono text-xs text-[#5C4B41] font-semibold uppercase mb-2">04 // SELECT BATCH VOLUME</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="setRfq('volume', 'Prototype (1–5 pcs)')" class="rfq-pill-volume tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#9E6B3B] text-[#FAF7F2] font-bold">Prototype (1–5 pcs)</button>
+                                    <button onclick="setRfq('volume', 'Pilot (10–25 pcs)')" class="rfq-pill-volume tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Pilot (10–25 pcs)</button>
+                                    <button onclick="setRfq('volume', 'EMS Mass Production (50+ pcs)')" class="rfq-pill-volume tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">EMS Mass Production (50+ pcs)</button>
+                                </div>
+                            </div>
+
+                            <!-- 5. NDA Requirement -->
+                            <div>
+                                <div class="font-mono text-xs text-[#231914] font-semibold uppercase mb-2">05 // SELECT NDA PROTOCOL</div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="setRfq('nda', 'Standard Mutual NDA Included')" class="rfq-pill-nda tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#231914] text-[#FAF7F2] font-bold">Standard Mutual NDA Included</button>
+                                    <button onclick="setRfq('nda', 'Custom Customer NDA')" class="rfq-pill-nda tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]">Custom Customer NDA</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Live Generated Engineering RFQ Token & Spec Manifest -->
+                        <div class="lg:col-span-6">
+                            <div class="h-full rounded-2xl bg-[#FAF7F2] border border-[#E4DDD3] p-6 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#E4DDD3] pb-3.5 mb-4">
+                                        <div>
+                                            <span id="rfq-token-id" class="font-mono text-[11px] text-[#B85D3B] font-bold">TOKEN // NCR-BLR-WS761-P01</span>
+                                            <h4 id="rfq-manifest-title" class="font-display text-2xl sm:text-3xl font-bold text-[#231914] mt-0.5">Wave-Soldering Pallet</h4>
+                                        </div>
+                                        <span class="font-mono text-[10px] px-2.5 py-1 rounded bg-[#FFFFFF] text-[#3D6B52] font-bold border border-[#E4DDD3]">±0.01 MM CAM</span>
+                                    </div>
+
+                                    <div class="space-y-2.5 font-mono text-xs">
+                                        <div class="flex justify-between py-1.5 border-b border-[#E4DDD3]">
+                                            <span class="text-[#8A786D]">SUBSTRATE SPEC:</span>
+                                            <span id="rfq-out-material" class="text-[#231914] font-bold">Durostone® CAS-761</span>
+                                        </div>
+                                        <div class="flex justify-between py-1.5 border-b border-[#E4DDD3]">
+                                            <span class="text-[#8A786D]">ASSIGNED PLANT:</span>
+                                            <span id="rfq-out-hub" class="text-[#B85D3B] font-bold">Bangalore HQ (Peenya)</span>
+                                        </div>
+                                        <div class="flex justify-between py-1.5 border-b border-[#E4DDD3]">
+                                            <span class="text-[#8A786D]">REGIONAL DESK:</span>
+                                            <span id="rfq-out-email" class="text-[#3D6B52] font-bold">sales.blr@necrotooling.in</span>
+                                        </div>
+                                        <div class="flex justify-between py-1.5 border-b border-[#E4DDD3]">
+                                            <span class="text-[#8A786D]">BATCH VOLUME:</span>
+                                            <span id="rfq-out-volume" class="text-[#9E6B3B] font-bold">Prototype (1–5 pcs)</span>
+                                        </div>
+                                        <div class="flex justify-between py-1.5 border-b border-[#E4DDD3]">
+                                            <span class="text-[#8A786D]">NDA PROTOCOL:</span>
+                                            <span id="rfq-out-nda" class="text-[#231914] font-semibold">Standard Mutual NDA Included</span>
+                                        </div>
+                                        <div class="flex justify-between py-1.5">
+                                            <span class="text-[#8A786D]">CAD ATTACHMENT PACK:</span>
+                                            <span class="text-[#5C4B41]">ODB++ / IPC-2581 / RS-274X / STEP</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-[#E4DDD3] space-y-2.5">
+                                    <a id="rfq-mailto-link" href="#" class="tactile-btn block w-full text-center px-4 py-4 rounded-xl bg-[#231914] text-[#FAF7F2] font-sans font-bold text-xs sm:text-sm tracking-wide shadow-md hover:bg-[#B85D3B]">
+                                        LAUNCH REGIONAL PLANT MAILTO (SALES.BLR@NECROTOOLING.IN) →
+                                    </a>
+                                    <div class="grid grid-cols-2 gap-2.5">
+                                        <button onclick="copyRfqManifest()" class="tactile-btn px-4 py-2.5 rounded-xl bg-[#FFFFFF] hover:bg-[#F3EDE4] border border-[#E4DDD3] font-mono text-xs text-[#231914] font-semibold">
+                                            COPY SPEC SHEET
+                                        </button>
+                                        <button onclick="openNdaDrawer()" class="tactile-btn px-4 py-2.5 rounded-xl bg-[#B85D3B]/10 hover:bg-[#B85D3B]/18 border border-[#B85D3B]/30 font-mono text-xs text-[#B85D3B] font-semibold">
+                                            OPEN NDA & DFM GUIDE
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER: Warm Ivory Parchment & Verified Regional Plant Contacts -->
+    <footer class="bg-[#F3EDE4] border-t border-[#E4DDD3] py-14">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-12 gap-10 pb-10 border-b border-[#E4DDD3]">
+                <div class="md:col-span-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="font-display font-bold text-3xl tracking-wider text-[#231914]">NECRO</span>
+                        <span class="text-xs font-mono px-2.5 py-0.5 rounded bg-[#B85D3B]/12 text-[#B85D3B] font-semibold border border-[#B85D3B]/30">NECRO Tooling Pvt. Ltd. • Est. 2019</span>
+                    </div>
+                    <p class="text-sm text-[#5C4B41] leading-relaxed max-w-md">
+                        Formerly Toto Engineering (Est. 2019). Precision PCBA & EMS tooling manufacturer specializing in Durostone®, Ricocel®, Grade-5 Titanium, and 7075-T6 Aluminum fixtures across India.
+                    </p>
+                    <div class="flex flex-wrap gap-2 pt-1 font-mono text-[11px] font-semibold">
+                        <span class="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E4DDD3] text-[#B85D3B]">BANGALORE HQ</span>
+                        <span class="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E4DDD3] text-[#9E6B3B]">PUNE</span>
+                        <span class="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E4DDD3] text-[#3D6B52]">GURGAON</span>
+                        <span class="px-2.5 py-1 rounded bg-[#FFFFFF] border border-[#E4DDD3] text-[#231914]">GREATER NOIDA</span>
+                    </div>
+                </div>
+
+                <div class="md:col-span-4 space-y-2.5">
+                    <h4 class="font-mono text-xs uppercase tracking-widest text-[#8A786D] font-semibold">REGIONAL PLANT SALES & DIRECT LINES</h4>
+                    <div class="space-y-2 font-mono text-xs">
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3]">
+                            <span class="text-[#B85D3B] font-semibold">BLR: sales.blr@necrotooling.in</span>
+                            <a href="tel:+918041289410" class="text-[#231914] font-bold hover:text-[#B85D3B]">+91 80 4128 9410</a>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3]">
+                            <span class="text-[#9E6B3B] font-semibold">PUN: sales.pune@necrotooling.in</span>
+                            <a href="tel:+912067248820" class="text-[#231914] font-bold hover:text-[#9E6B3B]">+91 20 6724 8820</a>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3]">
+                            <span class="text-[#3D6B52] font-semibold">GGN: sales.gurgaon@necrotooling.in</span>
+                            <a href="tel:+911244893310" class="text-[#231914] font-bold hover:text-[#3D6B52]">+91 124 489 3310</a>
+                        </div>
+                        <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3]">
+                            <span class="text-[#231914] font-semibold">NOI: sales.noida@necrotooling.in</span>
+                            <a href="tel:+911204517740" class="text-[#231914] font-bold hover:text-[#B85D3B]">+91 120 451 7740</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-3 space-y-3">
+                    <h4 class="font-mono text-xs uppercase tracking-widest text-[#8A786D] font-semibold">CENTRAL CAM & NDA DESK</h4>
+                    <div class="p-4 rounded-xl bg-[#FFFFFF] border border-[#E4DDD3] font-mono text-xs space-y-2.5">
+                        <div class="text-[#B85D3B] font-semibold">engineering@necrotooling.in</div>
+                        <div class="text-[#3D6B52] font-semibold">rfq@necrotooling.in</div>
+                        <div class="text-[#8A786D] text-[11px]">ODB++, IPC-2581, RS-274X, STEP</div>
+                        <button onclick="openNdaDrawer()" class="tactile-btn w-full py-2 rounded-lg bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-semibold">
+                            MUTUAL NDA PROTOCOL
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#8A786D]">
+                <div>© 2019–2026 NECRO Tooling Pvt. Ltd. (Formerly Toto Engineering). All Rights Reserved.</div>
+                <div>ZERO-FORM ARCHITECTURE • ISO 9001:2015 & ANSI/ESD S20.20</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Application Script -->
+    <script>
+        // ==========================================
+        // 1. SPOTLIGHT CURSOR AURA & CARD TRACKING
+        // ==========================================
+        const cursorGlow = document.getElementById('cursor-glow');
+        window.addEventListener('mousemove', (e) => {
+            cursorGlow.style.transform = `translate(${e.clientX - 210}px, ${e.clientY - 210}px)`;
+            document.querySelectorAll('.editorial-panel').forEach(panel => {
+                const rect = panel.getBoundingClientRect();
+                panel.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                panel.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
+        });
+
+        // Hero 3D Perspective Parallax
+        const tiltCard = document.getElementById('hero-tilt-card');
+        if (tiltCard) {
+            tiltCard.addEventListener('mousemove', (e) => {
+                const rect = tiltCard.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                tiltCard.style.transform = `perspective(1000px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+            });
+            tiltCard.addEventListener('mouseleave', () => {
+                tiltCard.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
+            });
+        }
+
+        // ==========================================
+        // 2. ZERO-ALERT TOAST & CLIPBOARD ENGINE
+        // ==========================================
+        function showToast(title, subtitle, accent = '#B85D3B') {
+            const stack = document.getElementById('toast-stack');
+            const el = document.createElement('div');
+            el.className = 'pointer-events-auto editorial-panel px-4 py-3.5 rounded-2xl border border-[#E4DDD3] shadow-xl flex items-center gap-3 transform translate-y-4 opacity-0 transition-all duration-300';
+            el.innerHTML = `
+                <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${accent};"></span>
+                <div>
+                    <div class="font-sans font-bold text-xs text-[#231914]">${title}</div>
+                    <div class="font-mono text-[11px] text-[#5C4B41]">${subtitle}</div>
+                </div>
+            `;
+            stack.appendChild(el);
+            requestAnimationFrame(() => el.classList.remove('translate-y-4', 'opacity-0'));
+            setTimeout(() => {
+                el.classList.add('translate-y-4', 'opacity-0');
+                setTimeout(() => el.remove(), 300);
+            }, 3200);
+        }
+
+        function copyToClipboard(text, title, subtitle) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                showToast(title, subtitle, '#B85D3B');
+            } catch (err) {
+                showToast('Ready to Dispatch', text, '#3D6B52');
+            }
+            document.body.removeChild(ta);
+        }
+
+        // ==========================================
+        // 3. SLIDE-OVER MUTUAL NDA & DFM DRAWER
+        // ==========================================
+        function openNdaDrawer() {
+            const drawer = document.getElementById('nda-drawer');
+            const sheet = drawer.querySelector('.drawer-sheet');
+            drawer.classList.remove('hidden');
+            drawer.classList.add('flex');
+            requestAnimationFrame(() => {
+                drawer.classList.remove('opacity-0');
+                sheet.classList.remove('translate-x-full');
+            });
+        }
+
+        function closeNdaDrawer() {
+            const drawer = document.getElementById('nda-drawer');
+            const sheet = drawer.querySelector('.drawer-sheet');
+            drawer.classList.add('opacity-0');
+            sheet.classList.add('translate-x-full');
+            setTimeout(() => {
+                drawer.classList.add('hidden');
+                drawer.classList.remove('flex');
+            }, 380);
+        }
+
+        function copyDfmManifest() {
+            const text = `NECRO TOOLING PVT. LTD. — GERBER & DFM SUBMISSION PROTOCOL\n• Supported CAD: ODB++, IPC-2581, RS-274X Gerber + NC Drill, 3D STEP/IGES\n• Mutual NDA: Countersigned within 2 business hours (rfq@necrotooling.in)\n• Plants: Bangalore HQ (sales.blr@necrotooling.in) | Pune (sales.pune@necrotooling.in) | Gurgaon (sales.gurgaon@necrotooling.in) | Greater Noida (sales.noida@necrotooling.in)`;
+            copyToClipboard(text, 'DFM Checklist Copied!', 'Ready to paste into your CAD email');
+        }
+
+        // ==========================================
+        // 4. HERO 3-MODE HARDWARE STAGE SWITCHER
+        // ==========================================
+        function switchHeroStage(mode) {
+            const views = ['studio', 'xray', 'thermal'];
+            const tags = {
+                studio: 'EDITORIAL_STUDIO // WAVE_PALLET_CAS761',
+                xray: 'CAD_BLUEPRINT // 5AXIS_TOOLPATH.STEP',
+                thermal: 'THERMAL_MAP // 350°C_WAVE_SHIELD'
+            };
+            document.getElementById('hero-stage-tag').textContent = tags[mode];
+
+            views.forEach(v => {
+                const el = document.getElementById(`stage-view-${v}`);
+                const btn = document.getElementById(`mode-${v}`);
+                if (v === mode) {
+                    el.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                    el.classList.add('opacity-100', 'scale-100');
+                    btn.className = v === 'thermal'
+                        ? 'px-2.5 py-1 rounded-lg font-bold bg-[#B85D3B] text-[#FAF7F2] transition'
+                        : v === 'xray'
+                        ? 'px-2.5 py-1 rounded-lg font-bold bg-[#3D6B52] text-[#FAF7F2] transition'
+                        : 'px-2.5 py-1 rounded-lg font-bold bg-[#231914] text-[#FAF7F2] transition';
+                } else {
+                    el.classList.remove('opacity-100', 'scale-100');
+                    el.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                    btn.className = 'px-2.5 py-1 rounded-lg font-bold text-[#5C4B41] hover:text-[#231914] transition';
+                }
+            });
+        }
+
+        // ==========================================
+        // 5. INTERACTIVE CAD & STUDIO INSPECTOR
+        // ==========================================
+        let inspMode = 'xray'; // 'xray' | 'studio' | 'thermal'
+        let inspExploded = false;
+        let activeInspKey = 'wave';
+
+        const inspectorCatalog = {
+            wave: {
+                code: 'DWG-ID: NCR-WS-901',
+                badge: 'DUROSTONE® CAS-761 + TI-6AL-4V LATCHES',
+                title: 'Wave-Soldering Pallets',
+                rfqProduct: 'Wave-Soldering Pallet',
+                rfqMaterial: 'Durostone® CAS-761',
+                desc: '5-axis CNC-machined Durostone® CAS-761 carriers protecting bottom-side SMD components from 350°C molten solder waves while exposing through-hole pins via 45° aerodynamic chamfers.',
+                specs: [
+                    { k: 'Titanium Wall Minimum', v: '0.50 mm (Ti-6Al-4V)' },
+                    { k: 'CNC Repeatability', v: '±0.01 mm Verified' },
+                    { k: 'Hold-Down System', v: 'Swivel Titanium Latches' }
+                ],
+                hotspots: ['01. Ti-6Al-4V Swivel Clamps', '02. 45° Solder Flow Pocket', '03. Durostone® CAS-761 Base'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="65" y="188" width="370" height="62" rx="10" fill="rgba(158,107,59,0.12)" stroke="#231914" stroke-width="2"/>
+                            <text x="85" y="223" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">BASE CARRIER: DUROSTONE® CAS-761 (8.0 MM)</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="95" y="126" width="310" height="44" rx="6" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="1.8"/>
+                            <rect x="135" y="136" width="75" height="24" rx="3" fill="#FFFFFF" stroke="#B85D3B" stroke-width="1.5"/>
+                            <rect x="245" y="136" width="115" height="24" rx="3" fill="#FFFFFF" stroke="#B85D3B" stroke-width="1.5"/>
+                            <text x="108" y="117" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">PCB DATUM NEST & TI-6AL-4V WAVE APERTURES</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <line x1="85" y1="74" x2="415" y2="74" stroke="#B85D3B" stroke-width="3" stroke-dasharray="8 4"/>
+                            <circle cx="115" cy="74" r="8" fill="#B85D3B"/><circle cx="385" cy="74" r="8" fill="#B85D3B"/>
+                            <text x="142" y="61" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#B85D3B">TITANIUM SWIVEL HOLD-DOWN RAIL</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <polygon points="250,32 435,140 250,248 65,140" fill="#352B25" stroke="#9E6B3B" stroke-width="1.8"/>
+                        <polygon points="65,140 250,248 250,268 65,160" fill="#231914" stroke="#5C4B41" stroke-width="1.5"/>
+                        <polygon points="435,140 250,248 250,268 435,160" fill="#4A3E36" stroke="#5C4B41" stroke-width="1.5"/>
+                        <polygon points="250,62 385,140 250,218 115,140" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.6"/>
+                        <g fill="#FAF7F2" stroke="#B85D3B" stroke-width="1.6">
+                            <circle cx="165" cy="110" r="8"/><circle cx="335" cy="110" r="8"/>
+                            <circle cx="165" cy="170" r="8"/><circle cx="335" cy="170" r="8"/>
+                        </g>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // DUROSTONE® CAS-761 + TI-6AL-4V</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="65" y="185" width="370" height="65" rx="10" fill="rgba(184,93,59,0.2)" stroke="#B85D3B" stroke-width="2"/>
+                        <rect x="95" y="122" width="310" height="44" rx="6" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="1.8"/>
+                        <text x="115" y="148" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#3D6B52">SMD TOP-SIDE SHIELDED: 108°C (SAFE)</text>
+                        <text x="115" y="222" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#B85D3B">WAVE CONTACT ZONE: 350°C PEAK</text>
+                    </svg>
+                `
+            },
+            manual: {
+                code: 'DWG-ID: NCR-MS-404',
+                badge: 'ESD-SAFE SYNTHETIC STONE + TITANIUM HOLD-DOWNS',
+                title: 'Manual Soldering Fixtures',
+                rfqProduct: 'Manual Soldering Fixture',
+                rfqMaterial: 'Ricocel® ES-3261A',
+                desc: 'Ergonomic 15° tilt ESD assembly nests with titanium & anti-static silicone hold-down pads and component height masks for zero-flex manual soldering and selective touch-up.',
+                specs: [
+                    { k: 'Clamping Interface', v: 'Titanium & Silicone Pads' },
+                    { k: 'Substrate Grade', v: 'Ricocel® ES-3261A (10⁶–10⁸ Ω)' },
+                    { k: 'Ergonomic Angle', v: '15° Anti-Fatigue Tilt Base' }
+                ],
+                hotspots: ['01. Titanium Toggle Clamps', '02. Tall-Part Relief Nest', '03. 15° Tilt Ricocel® Base'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="60" y="190" width="380" height="55" rx="12" fill="rgba(158,107,59,0.14)" stroke="#231914" stroke-width="2"/>
+                            <text x="82" y="222" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">15° TILT RICOCEL® ES-3261A ESD BASE</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="100" y="128" width="300" height="45" rx="6" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="1.8"/>
+                            <circle cx="155" cy="150" r="9" fill="#B85D3B"/><circle cx="250" cy="150" r="9" fill="#B85D3B"/><circle cx="345" cy="150" r="9" fill="#B85D3B"/>
+                            <text x="120" y="118" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">COMPONENT HEIGHT SUPPORT STANDOFFS</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <path d="M90,82 L145,82 L145,104 M410,82 L355,82 L355,104" stroke="#B85D3B" stroke-width="3" fill="none"/>
+                            <text x="158" y="86" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#B85D3B">TITANIUM & SILICONE TOGGLE CLAMPS</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="75" y="175" width="350" height="65" rx="12" fill="#352B25" stroke="#9E6B3B" stroke-width="2"/>
+                        <rect x="110" y="130" width="280" height="45" rx="6" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.6"/>
+                        <rect x="92" y="95" width="26" height="45" rx="4" fill="#B85D3B"/><rect x="382" y="95" width="26" height="45" rx="4" fill="#B85D3B"/>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // RICOCEL® MANUAL SOLDER FIXTURE</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="75" y="175" width="350" height="65" rx="12" fill="rgba(158,107,59,0.16)" stroke="#9E6B3B" stroke-width="2"/>
+                        <circle cx="250" cy="145" r="35" fill="rgba(184,93,59,0.28)" stroke="#B85D3B" stroke-width="2"/>
+                        <text x="125" y="95" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#B85D3B">LOCALIZED IRON TIP ZONE: 360°C ISOLATED</text>
+                    </svg>
+                `
+            },
+            pressfit: {
+                code: 'DWG-ID: NCR-PF-712',
+                badge: 'ANODIZED 7075-T6 ALUMINUM + HARDENED GUIDE PILLARS',
+                title: 'Screwing & Press-Fit Fixtures',
+                rfqProduct: 'Screwing / Press-Fit Fixture',
+                rfqMaterial: '7075-T6 Anodized Aluminum',
+                desc: 'CNC-milled 7075-T6 ESD hard-anodized aluminum bolsters with hardened steel guide pillars and under-board support anvils rated for 25 kN press-fit & cobot screwdriving.',
+                specs: [
+                    { k: 'Axial Load Rating', v: '25 kN Zero-Deflection' },
+                    { k: 'Alignment System', v: 'Hardened Steel Guide Pillars' },
+                    { k: 'Surface Finish', v: 'ESD Hard Anodized (10⁶–10⁸ Ω)' }
+                ],
+                hotspots: ['01. Hardened Steel Guide Pillars', '02. Zero-Flex Support Anvils', '03. 7075-T6 Aluminum Bolster'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="65" y="190" width="370" height="60" rx="8" fill="rgba(184,93,59,0.14)" stroke="#B85D3B" stroke-width="2"/>
+                            <text x="85" y="225" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#B85D3B">7075-T6 ANODIZED ALUMINUM LOAD BOLSTER</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="110" y="130" width="280" height="42" rx="4" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="2"/>
+                            <line x1="160" y1="130" x2="160" y2="190" stroke="#231914" stroke-width="4"/>
+                            <line x1="250" y1="130" x2="250" y2="190" stroke="#231914" stroke-width="4"/>
+                            <line x1="340" y1="130" x2="340" y2="190" stroke="#231914" stroke-width="4"/>
+                            <text x="125" y="120" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">HARDENED UNDER-BOARD ANVIL PILLARS</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <polygon points="235,55 265,55 250,95" fill="#9E6B3B" stroke="#231914" stroke-width="1.5"/>
+                            <text x="148" y="44" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">COBOT TORQUE / PRESS-FIT SPINDLE</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="70" y="195" width="360" height="55" rx="8" fill="#3A3532" stroke="#9E6B3B" stroke-width="2"/>
+                        <rect x="115" y="150" width="270" height="24" rx="4" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.6"/>
+                        <rect x="225" y="45" width="50" height="65" rx="6" fill="#231914" stroke="#9E6B3B" stroke-width="1.8"/>
+                        <polygon points="238,110 262,110 250,145" fill="#B85D3B"/>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // 7075-T6 PRESS-FIT & TORQUE FIXTURE</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="70" y="195" width="360" height="55" rx="8" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="2"/>
+                        <text x="110" y="140" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">MECHANICAL STRESS &lt; 0.008 MM @ 25 KN</text>
+                    </svg>
+                `
+            },
+            magazine: {
+                code: 'DWG-ID: NCR-MG-308',
+                badge: 'CONDUCTIVE POLYCARBONATE + BRUSHED ALUMINUM FRAME',
+                title: '50-Slot ESD PCB Magazines',
+                rfqProduct: '50-Slot ESD PCB Magazine',
+                rfqMaterial: '7075-T6 Anodized Aluminum',
+                desc: 'SMEMA-compatible 50-slot PCB storage & automated loader racks with gear-track width adjustment and permanent conductive polycarbonate guide walls.',
+                specs: [
+                    { k: 'Capacity & Pitch', v: '50 Slots @ 10 mm Pitch' },
+                    { k: 'ESD Resistivity', v: '10⁵ – 10⁹ Ω Permanent' },
+                    { k: 'Thermal Variants', v: '80°C Standard & 200°C Reflow' }
+                ],
+                hotspots: ['01. Gear-Track Width Lock', '02. 50-Slot Conductive Walls', '03. Brushed Aluminum Frame'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="90" y="215" width="320" height="30" rx="6" fill="rgba(158,107,59,0.16)" stroke="#231914" stroke-width="2"/>
+                            <text x="130" y="234" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">BRUSHED ALUMINUM REINFORCED CHASSIS</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="105" y="95" width="290" height="110" rx="4" fill="rgba(61,107,82,0.14)" stroke="#3D6B52" stroke-width="2"/>
+                            <line x1="115" y1="120" x2="385" y2="120" stroke="#9E6B3B" stroke-width="1.5" stroke-dasharray="5 4"/>
+                            <line x1="115" y1="145" x2="385" y2="145" stroke="#9E6B3B" stroke-width="1.5" stroke-dasharray="5 4"/>
+                            <line x1="115" y1="170" x2="385" y2="170" stroke="#9E6B3B" stroke-width="1.5" stroke-dasharray="5 4"/>
+                            <text x="145" y="196" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">50-SLOT CONDUCTIVE POLYCARBONATE</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <rect x="90" y="55" width="320" height="26" rx="6" fill="rgba(184,93,59,0.16)" stroke="#B85D3B" stroke-width="2"/>
+                            <text x="135" y="72" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#B85D3B">GEAR-TRACK WIDTH ADJUSTMENT LOCK</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="110" y="52" width="280" height="205" rx="10" fill="#231914" stroke="#9E6B3B" stroke-width="2"/>
+                        <g stroke="#E5C5A3" stroke-width="3">
+                            <line x1="130" y1="84" x2="370" y2="84"/><line x1="130" y1="110" x2="370" y2="110"/>
+                            <line x1="130" y1="136" x2="370" y2="136"/><line x1="130" y1="162" x2="370" y2="162"/>
+                            <line x1="130" y1="188" x2="370" y2="188"/><line x1="130" y1="214" x2="370" y2="214"/>
+                        </g>
+                        <rect x="150" y="38" width="200" height="14" rx="4" fill="#B85D3B"/>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // 50-SLOT ESD PCB MAGAZINE</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="110" y="52" width="280" height="205" rx="10" fill="rgba(184,93,59,0.16)" stroke="#B85D3B" stroke-width="2"/>
+                        <text x="135" y="155" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">HIGH-TEMP VARIANT: 200°C CURING OVEN SAFE</text>
+                    </svg>
+                `
+            },
+            router: {
+                code: 'DWG-ID: NCR-RT-519',
+                badge: 'VACUUM / PIN-REGISTERED RICOCEL® & ALUMINUM NESTS',
+                title: 'CNC Router & Depaneling Pallets',
+                rfqProduct: 'CNC Depaneling Router Pallet',
+                rfqMaterial: 'Ricocel® ES-3261A',
+                desc: 'Precision depaneling router jigs with carbide registration pins, 0.25mm milling bit channels, and integrated vacuum extraction to eliminate MLCC micro-cracking.',
+                specs: [
+                    { k: 'Bit Relief Clearance', v: '0.25 mm Precision Channel' },
+                    { k: 'Datum Registration', v: 'Hardened Carbide Pins' },
+                    { k: 'Dust Extraction', v: 'Sub-Surface Vacuum Manifold' }
+                ],
+                hotspots: ['01. Pneumatic Hold-Down Mask', '02. 0.25mm Bit Relief Path', '03. Vacuum Extraction Base'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="75" y="190" width="350" height="55" rx="8" fill="rgba(158,107,59,0.16)" stroke="#231914" stroke-width="2"/>
+                            <text x="105" y="222" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">SUB-SURFACE VACUUM EXTRACTION BASE</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="100" y="130" width="300" height="45" rx="6" fill="rgba(61,107,82,0.16)" stroke="#3D6B52" stroke-width="2"/>
+                            <path d="M130,152 L370,152" stroke="#B85D3B" stroke-width="3" stroke-dasharray="10 6"/>
+                            <text x="145" y="120" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#3D6B52">0.25 MM CNC ROUTER BIT RELIEF PATH</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <rect x="140" y="65" width="220" height="28" rx="6" fill="rgba(184,93,59,0.16)" stroke="#B85D3B" stroke-width="2"/>
+                            <text x="155" y="83" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#B85D3B">PIN & VACUUM HOLD-DOWN MASK</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="85" y="175" width="330" height="60" rx="8" fill="#352B25" stroke="#9E6B3B" stroke-width="2"/>
+                        <rect x="115" y="142" width="270" height="28" rx="4" fill="#3D6B52" stroke="#E5C5A3" stroke-width="1.6"/>
+                        <rect x="235" y="45" width="30" height="55" rx="4" fill="#231914" stroke="#E5C5A3" stroke-width="1.5"/>
+                        <line x1="250" y1="100" x2="250" y2="142" stroke="#B85D3B" stroke-width="3.5"/>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // VACUUM CNC DEPANELING ROUTER PALLET</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="85" y="175" width="330" height="60" rx="8" fill="rgba(61,107,82,0.15)" stroke="#3D6B52" stroke-width="2"/>
+                        <text x="115" y="135" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">PCB STRAIN &lt; 150 MICROSTRAIN (IPC-9704)</text>
+                    </svg>
+                `
+            },
+            stencils: {
+                code: 'DWG-ID: NCR-ST-615',
+                badge: 'FINE-GRAIN STAINLESS STEEL + G10/FR4 PROBE BEDS',
+                title: 'Laser SMT Stencils & ICT Fixtures',
+                rfqProduct: 'Laser SMT Stencil / ICT Bed',
+                rfqMaterial: 'Grade-5 Titanium (Ti-6Al-4V)',
+                desc: 'Electro-polished nano-coated SUS304 stainless steel SMT stencils (step-down/step-up capable) and 0.40mm fine-pitch pneumatic ICT/FCT G10/FR4 bed-of-nails test fixtures.',
+                specs: [
+                    { k: 'Laser Aperture Tol.', v: '±0.004 mm Electro-Polished' },
+                    { k: 'ICT Test Probe Pitch', v: 'Down to 0.40 mm Fine-Pitch' },
+                    { k: 'Probe Bed Substrate', v: 'G10/FR4 & ESD Composite' }
+                ],
+                hotspots: ['01. Pneumatic Press-Down Plate', '02. SUS304 Laser-Cut Foil', '03. G10/FR4 Pogo-Pin Matrix'],
+                xraySvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <g class="assembly-layer layer-base">
+                            <rect x="80" y="190" width="340" height="52" rx="8" fill="rgba(61,107,82,0.14)" stroke="#3D6B52" stroke-width="2"/>
+                            <text x="115" y="220" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#3D6B52">G10/FR4 ICT / FCT POGO-PIN MATRIX WELL</text>
+                        </g>
+                        <g class="assembly-layer layer-pcb">
+                            <rect x="105" y="128" width="290" height="42" rx="6" fill="rgba(158,107,59,0.16)" stroke="#9E6B3B" stroke-width="2"/>
+                            <text x="122" y="153" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#231914">SUS304 LASER-CUT NANO-COATED STENCIL</text>
+                        </g>
+                        <g class="assembly-layer layer-clamp">
+                            <rect x="90" y="65" width="320" height="32" rx="6" fill="rgba(184,93,59,0.16)" stroke="#B85D3B" stroke-width="2"/>
+                            <text x="135" y="85" font-family="JetBrains Mono" font-size="10" font-weight="bold" fill="#B85D3B">PNEUMATIC TOP PRESS-PLATE & PUSHER PINS</text>
+                        </g>
+                    </svg>
+                `,
+                studioSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="85" y="70" width="330" height="175" rx="8" fill="#3A3532" stroke="#9E6B3B" stroke-width="2.5"/>
+                        <rect x="115" y="95" width="270" height="125" rx="4" fill="#FAF7F2" stroke="#231914" stroke-width="1.5"/>
+                        <g fill="#3D6B52">
+                            <rect x="155" y="125" width="40" height="25" rx="2"/><rect x="230" y="125" width="40" height="25" rx="2"/><rect x="305" y="125" width="40" height="25" rx="2"/>
+                            <rect x="155" y="168" width="40" height="25" rx="2"/><rect x="230" y="168" width="40" height="25" rx="2"/><rect x="305" y="168" width="40" height="25" rx="2"/>
+                        </g>
+                        <text x="20" y="28" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">EDITORIAL STUDIO // SUS304 LASER STENCIL & ICT BED</text>
+                    </svg>
+                `,
+                thermalSvg: `
+                    <svg viewBox="0 0 500 300" class="w-full h-full">
+                        <rect x="85" y="70" width="330" height="175" rx="8" fill="rgba(158,107,59,0.14)" stroke="#9E6B3B" stroke-width="2"/>
+                        <text x="115" y="160" font-family="JetBrains Mono" font-size="11" font-weight="bold" fill="#231914">PASTE TRANSFER EFFICIENCY: &gt; 94% AREA RATIO</text>
+                    </svg>
+                `
+            }
+        };
+
+        function renderInspector(key) {
+            activeInspKey = key;
+            const item = inspectorCatalog[key];
+            document.getElementById('insp-dwg-code').textContent = item.code;
+
+            const container = document.getElementById('insp-svg-container');
+            const activeSvg = inspMode === 'xray' ? item.xraySvg : inspMode === 'studio' ? item.studioSvg : item.thermalSvg;
+            container.innerHTML = activeSvg;
+
+            if (inspExploded && inspMode === 'xray') {
+                container.classList.add('is-exploded');
+            } else {
+                container.classList.remove('is-exploded');
+            }
+
+            document.getElementById('insp-hotspots').innerHTML = item.hotspots.map(h => `
+                <button onclick="showToast('CAD Callout Verified', '${h}', '#B85D3B')" class="px-2.5 py-1 rounded-lg bg-[#FFFFFF] hover:bg-[#F3EDE4] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3] font-semibold transition">
+                    ${h}
+                </button>
+            `).join('') + `<span class="text-[#3D6B52] font-bold">5-AXIS CAM VERIFIED ✓</span>`;
+
+            const specRows = item.specs.map(s => `
+                <div class="flex items-center justify-between p-3.5 rounded-xl bg-[#FAF7F2] border border-[#E4DDD3]">
+                    <span class="font-mono text-xs text-[#5C4B41]">${s.k}</span>
+                    <span class="font-mono text-xs sm:text-sm font-bold text-[#231914]">${s.v}</span>
+                </div>
+            `).join('');
+
+            document.getElementById('insp-specs-column').innerHTML = `
+                <div>
+                    <span class="inline-block px-3 py-1 rounded-full font-mono text-[11px] bg-[#9E6B3B]/12 text-[#9E6B3B] font-semibold border border-[#9E6B3B]/30 mb-3">
+                        ${item.badge}
+                    </span>
+                    <h3 class="font-display text-3xl sm:text-4xl font-bold text-[#231914]">${item.title}</h3>
+                    <p class="text-[#5C4B41] text-sm sm:text-base mt-3 leading-relaxed">${item.desc}</p>
+                </div>
+                <div class="space-y-2.5">${specRows}</div>
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <button onclick="loadIntoRfq('${item.rfqProduct}', '${item.rfqMaterial}')" class="tactile-btn flex-1 px-5 py-3.5 rounded-xl bg-[#231914] hover:bg-[#B85D3B] text-[#FAF7F2] font-sans font-bold text-xs sm:text-sm shadow-md">
+                        LOAD INTO RFQ ENGINE →
+                    </button>
+                    <button onclick="openNdaDrawer()" class="tactile-btn px-4 py-3.5 rounded-xl editorial-panel hover:border-[#B85D3B]/50 font-mono text-xs text-[#B85D3B] font-semibold">
+                        NDA & DFM
+                    </button>
+                </div>
+            `;
+        }
+
+        function cycleInspectorView() {
+            const order = ['xray', 'studio', 'thermal'];
+            const labels = { xray: 'MODE: CAD BLUEPRINT', studio: 'MODE: EDITORIAL STUDIO', thermal: 'MODE: THERMAL MAP' };
+            inspMode = order[(order.indexOf(inspMode) + 1) % order.length];
+            document.getElementById('insp-view-label').textContent = labels[inspMode];
+            renderInspector(activeInspKey);
+        }
+
+        function toggleInspectorExplode() {
+            if (inspMode !== 'xray') {
+                inspMode = 'xray';
+                document.getElementById('insp-view-label').textContent = 'MODE: CAD BLUEPRINT';
+            }
+            inspExploded = !inspExploded;
+            document.getElementById('insp-explode-label').textContent = inspExploded ? 'COLLAPSE LAYERS' : 'EXPLODE LAYERS';
+            renderInspector(activeInspKey);
+            if (inspExploded) showToast('Exploded Stackup Active', 'Inspecting multi-layer assembly separation', '#B85D3B');
+        }
+
+        function jumpToInspector(key) {
+            document.querySelectorAll('.insp-tab').forEach(b => {
+                const active = b.dataset.key === key;
+                b.className = active
+                    ? 'insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm bg-[#231914] text-[#FAF7F2] shadow-md'
+                    : 'insp-tab tactile-btn px-4 py-2.5 rounded-xl font-sans font-bold text-xs sm:text-sm editorial-panel text-[#5C4B41] hover:text-[#231914]';
+            });
+            renderInspector(key);
+            document.getElementById('inspector').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.insp-tab').forEach(btn => {
+            btn.addEventListener('click', () => jumpToInspector(btn.dataset.key));
+        });
+
+        renderInspector('wave');
+
+        // ==========================================
+        // 6. INTERACTIVE MATERIAL SCIENCE LAB
+        // ==========================================
+        const substrateCatalog = {
+            durostone: {
+                badge: 'WAVE & SELECTIVE SOLDER BENCHMARK',
+                title: 'Durostone® CAS-761',
+                desc: 'High-temperature glass-reinforced composite engineered for 20,000+ molten solder wave cycles up to 350°C peak with zero delamination, warpage, or flux wicking.',
+                contTemp: '280°C',
+                peakTemp: '350°C',
+                esd: '10⁵–10⁹ Ω',
+                apps: ['Wave-Soldering Pallets', 'Selective Solder Carriers', 'Reflow Pallets'],
+                bars: { cont: 93, peak: 96, dim: 96, chem: 97 },
+                activeStyle: 'border-2 border-[#B85D3B] bg-[#B85D3B]/5'
+            },
+            ricocel: {
+                badge: 'HIGH-DENSITY ESD COMPOSITE',
+                title: 'Ricocel® ES-3261A',
+                desc: 'Ultra-dense Japanese synthetic stone offering razor-thin pocket wall machinability (0.50mm), low thermal conductivity, and permanent static dissipation.',
+                contTemp: '260°C',
+                peakTemp: '300°C',
+                esd: '10⁶–10⁸ Ω',
+                apps: ['Manual Soldering Fixtures', 'CNC Router & Depaneling Pallets', 'Fine-Pitch Wave Pallets'],
+                bars: { cont: 88, peak: 90, dim: 97, chem: 95 },
+                activeStyle: 'border-2 border-[#9E6B3B] bg-[#9E6B3B]/5'
+            },
+            titanium: {
+                badge: 'AEROSPACE GRADE-5 ALLOY',
+                title: 'Grade-5 Titanium (Ti-6Al-4V)',
+                desc: 'Deployed where dense bottom-side SMD passives sit within 0.8mm of through-hole pins. Zero solder wetting, extreme thermal barrier, and indestructible swivel clamps.',
+                contTemp: '450°C',
+                peakTemp: '600°C+',
+                esd: 'Grounded (<10² Ω)',
+                apps: ['0.50mm Aperture Shields', 'Swivel Hold-Down Clamps', 'Thermal Wave Dams'],
+                bars: { cont: 100, peak: 100, dim: 99, chem: 99 },
+                activeStyle: 'border-2 border-[#3D6B52] bg-[#3D6B52]/5'
+            },
+            aluminum: {
+                badge: 'HIGH-LOAD STRUCTURAL BILLET',
+                title: '7075-T6 Anodized Aluminum',
+                desc: 'ESD hard-anodized CNC aerospace aluminum billet delivering maximum structural stiffness for 25 kN press-fit operations, robotic screwing nests, and SMEMA PCB magazines.',
+                contTemp: '200°C',
+                peakTemp: '250°C',
+                esd: '10⁶–10⁸ Ω (ESD)',
+                apps: ['Screwing & Press-Fit Fixtures', '50-Slot ESD PCB Magazines', 'ICT / FCT Test Chassis'],
+                bars: { cont: 75, peak: 80, dim: 98, chem: 92 },
+                activeStyle: 'border-2 border-[#231914] bg-[#231914]/5'
+            }
+        };
+
+        function selectSubstrate(key) {
+            const s = substrateCatalog[key];
+            document.querySelectorAll('.sub-pill').forEach(p => {
+                p.className = 'sub-pill editorial-panel p-5 rounded-2xl text-left border border-[#E4DDD3] transition-all';
+            });
+            document.getElementById(`sub-btn-${key}`).className = `sub-pill editorial-panel p-5 rounded-2xl text-left ${s.activeStyle} transition-all`;
+
+            document.getElementById('sub-badge').textContent = s.badge;
+            document.getElementById('sub-title').textContent = s.title;
+            document.getElementById('sub-desc').textContent = s.desc;
+            document.getElementById('sub-cont-temp').textContent = s.contTemp;
+            document.getElementById('sub-peak-temp').textContent = s.peakTemp;
+            document.getElementById('sub-esd-range').textContent = s.esd;
+
+            document.getElementById('sub-apps').innerHTML = s.apps.map(a =>
+                `<span class="px-3 py-1 rounded-lg bg-[#FAF7F2] border border-[#E4DDD3] font-mono text-xs text-[#231914] font-semibold">${a}</span>`
+            ).join('');
+
+            document.getElementById('bar-cont-label').textContent = `${s.contTemp} (${s.bars.cont}%)`;
+            document.getElementById('bar-cont-fill').style.width = `${s.bars.cont}%`;
+            document.getElementById('bar-peak-label').textContent = `${s.peakTemp} (${s.bars.peak}%)`;
+            document.getElementById('bar-peak-fill').style.width = `${s.bars.peak}%`;
+            document.getElementById('bar-dim-label').textContent = `${s.bars.dim}%`;
+            document.getElementById('bar-dim-fill').style.width = `${s.bars.dim}%`;
+            document.getElementById('bar-chem-label').textContent = `${s.bars.chem}%`;
+            document.getElementById('bar-chem-fill').style.width = `${s.bars.chem}%`;
+        }
+
+        selectSubstrate('durostone');
+
+        // ==========================================
+        // 7. PAN-INDIA 4-CITY PLANT ROUTING
+        // ==========================================
+        const plantDirectory = {
+            'Bangalore HQ': {
+                full: 'Bangalore HQ (Peenya)',
+                email: 'sales.blr@necrotooling.in',
+                phone: '+91 80 4128 9410',
+                code: 'BLR',
+                cardId: 'bangalore',
+                border: 'border-2 border-[#B85D3B] bg-[#B85D3B]/[0.03]'
+            },
+            'Pune': {
+                full: 'Pune Unit (Chakan / Bhosari MIDC)',
+                email: 'sales.pune@necrotooling.in',
+                phone: '+91 20 6724 8820',
+                code: 'PUN',
+                cardId: 'pune',
+                border: 'border-2 border-[#9E6B3B] bg-[#9E6B3B]/[0.03]'
+            },
+            'Gurgaon': {
+                full: 'Gurgaon Unit (IMT Manesar / Udyog Vihar)',
+                email: 'sales.gurgaon@necrotooling.in',
+                phone: '+91 124 489 3310',
+                code: 'GGN',
+                cardId: 'gurgaon',
+                border: 'border-2 border-[#3D6B52] bg-[#3D6B52]/[0.03]'
+            },
+            'Greater Noida': {
+                full: 'Greater Noida Unit (Ecotech III / Surajpur)',
+                email: 'sales.noida@necrotooling.in',
+                phone: '+91 120 451 7740',
+                code: 'NOI',
+                cardId: 'noida',
+                border: 'border-2 border-[#231914] bg-[#231914]/[0.03]'
+            }
+        };
+
+        function highlightPlant(key) {
+            const keyToName = {
+                bangalore: 'Bangalore HQ',
+                pune: 'Pune',
+                gurgaon: 'Gurgaon',
+                noida: 'Greater Noida'
+            };
+            const name = keyToName[key];
+            const info = plantDirectory[name];
+
+            document.querySelectorAll('.plant-card').forEach(c => {
+                c.className = 'plant-card cursor-pointer editorial-panel p-5 rounded-2xl border border-[#E4DDD3] transition-all';
+            });
+            document.getElementById(`plant-card-${key}`).className = `plant-card cursor-pointer editorial-panel p-5 rounded-2xl ${info.border} transition-all`;
+
+            setRfq('hub', name);
+        }
+
+        // ==========================================
+        // 8. ZERO-FORM ONE-TAP RFQ & CAD SPEC ENGINE
+        // ==========================================
+        const rfqState = {
+            product: 'Wave-Soldering Pallet',
+            material: 'Durostone® CAS-761',
+            hub: 'Bangalore HQ',
+            volume: 'Prototype (1–5 pcs)',
+            nda: 'Standard Mutual NDA Included'
+        };
+
+        function setRfq(field, value) {
+            rfqState[field] = value;
+
+            const styleMaps = {
+                product: { cls: '.rfq-pill-product', active: 'bg-[#231914] text-[#FAF7F2] font-bold' },
+                material: { cls: '.rfq-pill-material', active: 'bg-[#B85D3B] text-[#FAF7F2] font-bold' },
+                hub: { cls: '.rfq-pill-hub', active: 'bg-[#3D6B52] text-[#FAF7F2] font-bold' },
+                volume: { cls: '.rfq-pill-volume', active: 'bg-[#9E6B3B] text-[#FAF7F2] font-bold' },
+                nda: { cls: '.rfq-pill-nda', active: 'bg-[#231914] text-[#FAF7F2] font-bold' }
+            };
+
+            const cfg = styleMaps[field];
+            if (cfg) {
+                document.querySelectorAll(cfg.cls).forEach(btn => {
+                    const isMatch = btn.textContent.trim() === value;
+                    btn.className = isMatch
+                        ? `${cfg.cls.slice(1)} tactile-btn px-3 py-2 rounded-xl text-xs font-mono ${cfg.active}`
+                        : `${cfg.cls.slice(1)} tactile-btn px-3 py-2 rounded-xl text-xs font-mono bg-[#FAF7F2] text-[#5C4B41] hover:text-[#231914] border border-[#E4DDD3]`;
+                });
+            }
+
+            const plant = plantDirectory[rfqState.hub] || plantDirectory['Bangalore HQ'];
+            const prodCode = rfqState.product.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 3);
+            const volCode = rfqState.volume.startsWith('Prototype') ? 'P01' : rfqState.volume.startsWith('Pilot') ? 'L10' : 'M50';
+            const token = `NCR-${plant.code}-${prodCode}-${volCode}`;
+
+            document.getElementById('rfq-token-id').textContent = `TOKEN // ${token}`;
+            document.getElementById('rfq-manifest-title').textContent = rfqState.product;
+            document.getElementById('rfq-out-material').textContent = rfqState.material;
+            document.getElementById('rfq-out-hub').textContent = plant.full;
+            document.getElementById('rfq-out-email').textContent = plant.email;
+            document.getElementById('rfq-out-volume').textContent = rfqState.volume;
+            document.getElementById('rfq-out-nda').textContent = rfqState.nda;
+
+            const mailtoBtn = document.getElementById('rfq-mailto-link');
+            mailtoBtn.textContent = `LAUNCH REGIONAL PLANT MAILTO (${plant.email.toUpperCase()}) →`;
+
+            const subject = encodeURIComponent(`[${token}] RFQ & DFM: ${rfqState.product} (${rfqState.material}) — ${plant.full}`);
+            const body = encodeURIComponent(
+                `Hello NECRO Tooling Team (${plant.full}),\n\n` +
+                `Please initiate DFM analysis & quotation for the following specification:\n` +
+                `• RFQ Spec Token: ${token}\n` +
+                `• Tooling Architecture: ${rfqState.product}\n` +
+                `• Substrate / Alloy: ${rfqState.material}\n` +
+                `• Assigned Plant: ${plant.full} (${plant.phone})\n` +
+                `• Batch Volume: ${rfqState.volume}\n` +
+                `• NDA Protocol: ${rfqState.nda}\n` +
+                `• Precision Standard: ±0.01 mm (5-Axis CNC)\n\n` +
+                `[Attached CAD / Gerber Package: ODB++ / IPC-2581 / RS-274X Gerber / 3D STEP]`
+            );
+            mailtoBtn.href = `mailto:${plant.email}?cc=rfq@necrotooling.in&subject=${subject}&body=${body}`;
+        }
+
+        function loadIntoRfq(product, material) {
+            setRfq('product', product);
+            setRfq('material', material);
+            document.getElementById('rfq-engine').scrollIntoView({ behavior: 'smooth' });
+            showToast('Loaded into RFQ Engine', `${product} • ${material}`, '#B85D3B');
+        }
+
+        function copyRfqManifest() {
+            const plant = plantDirectory[rfqState.hub];
+            const token = document.getElementById('rfq-token-id').textContent;
+            const summary = `NECRO TOOLING PVT. LTD. | ${token} | Tooling: ${rfqState.product} | Substrate: ${rfqState.material} | Plant: ${plant.full} (${plant.email} / ${plant.phone}) | Volume: ${rfqState.volume} | NDA: ${rfqState.nda}`;
+            copyToClipboard(summary, 'RFQ Spec Sheet Copied!', `Addressed to ${plant.email}`);
+        }
+
+        setRfq('product', 'Wave-Soldering Pallet');
+
+        // ==========================================
+        // 9. SCROLL REVEAL & INTEGER KPI COUNTERS
+        // ==========================================
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        document.querySelectorAll('.kpi-counter').forEach(el => {
+            const target = parseInt(el.dataset.target, 10);
+            const duration = 1400;
+            const start = performance.now();
+            function step(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3);
+                el.textContent = Math.round(target * eased).toString();
+                if (p < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        });
+    </script>
+</body>
+</html>
